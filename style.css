@@ -1,0 +1,437 @@
+/* =================================
+   Bibi Learning Assistant v2.3 - Final Stylesheet
+   ================================= */
+
+/* --- 1. General Body & Font Styling --- */
+body {
+    background-color: #1c1c1e;
+    color: #f5f5f7;
+    font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+h1 {
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+/* --- 2. Controls & Buttons --- */
+.controls {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+button:active {
+    transform: scale(0.98);
+}
+button:disabled {
+    background-color: #555 !important;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Main Control Buttons */
+#controlBtn { background-color: #34c759; }
+#controlBtn:hover { background-color: #3ae365; }
+#controlBtn.active { background-color: #ff3b30; }
+#controlBtn.active:hover { background-color: #ff524a; }
+
+#pauseBtn.pausable { background-color: #ff9500; }
+#pauseBtn.pausable:hover { background-color: #ffab3a; }
+#pauseBtn.resumable { background-color: #5ac8fa; }
+#pauseBtn.resumable:hover { background-color: #7ed6fb; }
+
+/* View Switching Buttons */
+#transBtn, #noteBtn, #vocabBtn {
+    background-color: #555;
+}
+#transBtn:hover, #noteBtn:hover, #vocabBtn:hover {
+    background-color: #666;
+}
+.controls button.active-view {
+    background-color: #007aff;
+    box-shadow: 0 0 8px rgba(0, 122, 255, 0.7);
+}
+
+/* --- 3. View Containers --- */
+.view-container {
+    width: 100%;
+    max-width: 700px;
+    height: 65vh; /* Unified height */
+    min-height: 300px;
+    background-color: #2c2c2e;
+    border-radius: 12px;
+    border: 1px solid #444;
+    padding: 20px 25px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    display: none; /* All hidden by default */
+}
+#translationView {
+    display: block; /* Show translation view by default */
+}
+#liveContentOutput.listening {
+    box-shadow: inset 0 0 10px #34c759;
+}
+
+/* --- 4. Content Styling (Translation, Notes, Vocab) --- */
+/* Translation Content */
+.original-text {
+    color: #e0e0e0;
+    margin: 0 0 8px 0;
+    font-size: 1.1em;
+    font-weight: 500;
+    line-height: 1.6;
+}
+.original-text span.word {
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    padding: 2px 3px;
+    margin: -2px -3px; /* Prevent layout shift on hover */
+    border-radius: 4px;
+}
+.original-text span.word:hover {
+    background-color: #007aff;
+    color: #fff;
+}
+.translation-text {
+    color: #70c1b3;
+    margin: 0 0 25px 0;
+    font-size: 1.05em;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed #4a4a4c;
+}
+.original-text.new-entry, .translation-text.new-entry {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.original-text.visible, .translation-text.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Notes & Vocab Headers */
+#noteContainer h2, #vocabContainer h2 {
+    margin-top: 0;
+    color: #ffffff;
+    padding-bottom: 10px;
+}
+#noteContainer h2 { border-bottom: 2px solid #8e44ad; }
+#vocabContainer h2 { border-bottom: 2px solid #34c759; }
+
+/* Vocab List */
+#vocabListContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+.vocab-card {
+    background-color: #3a3a3c;
+    border-radius: 10px;
+    padding: 20px;
+    border-left: 5px solid #34c759;
+    transition: all 0.3s ease;
+}
+.vocab-card.starred {
+    border-left-color: #ff9500;
+    box-shadow: 0 0 10px rgba(255, 149, 0, 0.3);
+}
+.vocab-card .word { font-size: 1.5em; font-weight: bold; color: #5ac8fa; }
+.vocab-card .phonetic { color: #a0a8b7; margin-bottom: 10px; }
+.vocab-card .meaning { color: #f5f5f7; line-height: 1.6; }
+.vocab-card .meaning strong { color: #ff9500; }
+.vocab-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 15px;
+    border-top: 1px solid #4a4a4c;
+    padding-top: 10px;
+}
+.vocab-card-actions button {
+    background: none; border: 1px solid #666; color: #a0a8b7;
+    padding: 5px 10px; font-size: 12px; border-radius: 5px;
+}
+.vocab-card-actions button:hover { background-color: #555; color: #fff; }
+.vocab-card-actions .star-btn.starred { background-color: #ff9500; border-color: #ff9500; color: #fff; }
+
+/* --- 5. Popups & Overlay --- */
+#popupOverlay {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+#popupOverlay.visible {
+    display: block;
+    opacity: 1;
+}
+
+/* Generic Popup Styling */
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    width: 90%;
+    max-width: 450px;
+    background-color: #3a3a3c;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    z-index: 1000;
+    display: none;
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.popup.visible {
+    display: block;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Specific Popup Styles */
+#aiPopup { max-width: 600px; }
+#aiPopupContent .ai-definition {
+    text-align: left;
+    color: #e0e0e0;
+    line-height: 1.6;
+    font-size: 15px;
+    padding: 5px 25px 25px 25px; /* Add padding to content */
+}
+.popup.warning {
+    background-color: #3e3232;
+    border: 1px solid #ff8a80;
+}
+.popup.warning h2 { margin-top: 0; padding: 25px 25px 0 25px; color: #ff8a80; }
+.popup.warning p { padding: 0 25px; }
+
+/* Popup Content & Actions */
+#popupContent, #aiPopupContent {
+    max-height: 60vh;
+    overflow-y: auto;
+}
+#popupContent { padding: 25px; } /* Padding for dictionary popup only */
+
+/* THIS IS THE FIX for button alignment */
+.popup-actions {
+    display: flex;
+    justify-content: flex-end; /* Align buttons to the right */
+    gap: 10px;
+    padding: 0 25px 20px 25px;
+    margin-top: 15px;
+}
+.popup.warning .popup-actions {
+    justify-content: center; /* Center buttons in warning popup */
+}
+.popup-button {
+    flex-shrink: 0; /* Prevent buttons from shrinking */
+    background-color: #007aff;
+}
+.popup-button.secondary {
+    background-color: #555;
+}
+.popup-button.secondary:hover {
+    background-color: #666;
+}
+
+/* Dictionary Entry Formatting */
+.dict-entry .word-title { font-size: 24px; font-weight: bold; color: #fff; }
+.dict-entry .word-phonetic { font-size: 16px; color: #a0a8b7; margin-bottom: 20px; }
+.dict-entry .meaning-block { margin-top: 15px; border-top: 1px solid #4a4a4c; padding-top: 15px; }
+.dict-entry .meaning-block p { margin: 5px 0; }
+.dict-entry .meaning-block strong { color: #8ab4f8; }
+.dict-entry .meaning-block em { color: #ccc; font-style: normal; }
+/* style.css - Add to the end */
+
+/* 5. Enhanced Active View Button Style */
+.controls button.active-view {
+    background-color: #1A535C; /* Deep Green/Teal */
+    color: #F7FFF7; /* Off-white text for better contrast */
+    border: 2px solid #5ac8fa; /* Blue border */
+    box-shadow: 0 0 10px rgba(90, 200, 250, 0.7);
+}
+
+/* 2. AI Loading Spinner Animation */
+.loader {
+    margin: 20px auto;
+    border: 5px solid #4a4a4c; /* Light grey track */
+    border-top: 5px solid #5ac8fa; /* Blue spinner */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+/* style.css - 在文件末尾添加 */
+
+/* 4. 笔记本条目和删除按钮样式 */
+.note-entry {
+    background-color: #3a3a3c; /* 比背景稍亮的卡片颜色 */
+    border: 1px solid #555;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    position: relative; /* 这是为了让删除按钮可以相对于它定位 */
+    transition: all 0.3s ease; /* 配合JS中的删除动画 */
+}
+
+.note-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    color: #e0e0e5; /* 标题颜色更亮一些 */
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #4a4a4c;
+}
+
+/* 让“课堂总结”的标题颜色更突出 */
+.note-header.session-summary span:first-child {
+    color: #5ac8fa; /* 使用我们主题的蓝色 */
+}
+
+.note-content {
+    color: #c0c0c5; /* 笔记正文颜色 */
+    line-height: 1.6;
+}
+
+.timestamp {
+    font-size: 0.8em;
+    color: #8e8e93; /* 时间戳用灰色，不那么显眼 */
+}
+
+/* 删除按钮的样式 */
+.delete-note-btn {
+    position: absolute; /* 相对于 .note-entry 定位 */
+    top: 12px;
+    right: 12px;
+    background: none;
+    border: 1px solid #888;
+    color: #aaa;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 3px 8px;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+/* 鼠标悬浮在删除按钮上时的效果 */
+.delete-note-btn:hover {
+    background-color: #e53935; /* 危险的红色 */
+    color: #fff;
+    border-color: #e53935;
+}
+
+/* 笔记本为空时的默认提示信息样式 */
+.default-note-message {
+    color: #a0a8b7;
+    text-align: center;
+    padding-top: 50px;
+    font-size: 1.1em;
+}
+
+/* --- Dynamic Decorations & Feedback --- */
+
+/* 1. Animated Gradient Background */
+body {
+    background: linear-gradient(-45deg, #1d2b4b, #2c3e50, #131a28, #34495e);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* 2. Button Click Feedback */
+button, .word, .vocab-card-actions button {
+    transition: transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+button:active, .word:active, .vocab-card-actions button:active {
+    transform: scale(0.95); /* Shrinks the button on click */
+    box-shadow: none; /* Optional: remove shadow on click */
+}
+
+/* 3. Style for the new Status Indicator */
+#statusIndicator {
+    position: fixed;
+    bottom: 20px;
+    right: 25px;
+    z-index: 1000;
+    display: none; /* Initially hidden */
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: 100px;
+}
+
+/* The 6-dot wave container */
+#waveIndicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+#waveIndicator .dot {
+    width: 8px;
+    height: 8px;
+    background-color: #00ff9d;
+    border-radius: 50%;
+    animation: wave 1.2s ease-in-out infinite alternate;
+}
+
+/* Stagger the animation for each dot to create the wave */
+#waveIndicator .dot:nth-child(2) { animation-delay: -1.0s; }
+#waveIndicator .dot:nth-child(3) { animation-delay: -0.8s; }
+#waveIndicator .dot:nth-child(4) { animation-delay: -0.6s; }
+#waveIndicator .dot:nth-child(5) { animation-delay: -0.4s; }
+#waveIndicator .dot:nth-child(6) { animation-delay: -0.2s; }
+
+@keyframes wave {
+    from { transform: translateY(-10px); }
+    to { transform: translateY(10px); }
+}
+
+/* The pause symbol */
+#pauseIndicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 2px solid #ffc107;
+    border-radius: 50%;
+    color: #ffc107;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#pauseIndicator span {
+    letter-spacing: -2px; /* Bring the two bars closer */
+}

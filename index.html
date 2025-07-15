@@ -1,0 +1,90 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Learning Assistant</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 弹窗遮罩层 (共用) -->
+    <div id="popupOverlay"></div>
+
+    <!-- Popup 1: 单词快速词典 -->
+    <div id="dictionaryPopup" class="popup">
+        <div id="popupContent"></div>
+        <div class="popup-actions">
+            <button id="aiContextSearchBtn" class="popup-button secondary">AI 上下文分析</button>
+            <button id="addVocabBtn" class="popup-button">添加单词本</button>
+        </div>
+    </div>
+
+    <!-- NEW Popup 2: AI 上下文分析结果 -->
+    <div id="aiPopup" class="popup">
+        <div id="aiPopupContent"></div>
+    </div>
+
+    <!-- NEW Popup 3: 超时警告 -->
+    <div id="timeoutWarningPopup" class="popup warning">
+        <h2>Bibi 即将Kiss Goodbye...</h2>
+        <p>已经有一段时间没有听到你的声音了。</p>
+        <div class="popup-actions">
+            <button id="resumeBtn" class="popup-button">我还活着</button>
+            <button id="endSessionBtn" class="popup-button secondary">结束课程</button>
+        </div>
+    </div>
+
+    <h1>Bibi 学习助手 3.3 (Pro)</h1>
+
+    <div class="controls">
+        <button id="controlBtn">开始上课</button>
+        <button id="pauseBtn" disabled>Pause</button>
+        <button id="transBtn" class="active-view">同声传译</button> 
+        <button id="noteBtn">笔记本</button>  
+        <button id="vocabBtn">单词本</button> 
+    </div>
+
+    <div id="translationView" class="view-container">
+        <div id="liveContentOutput">
+            <p style="color: #a0a8b7;">这趟旅程若是开心，也是无愧这一生~</p>
+        </div>
+    </div>
+
+    <div id="noteView" class="view-container">
+        <div id="noteContainer">
+            <h2>Auto-Generated Notes</h2>
+            <div id="noteOutput"><p style="color: #a0a8b7;">花瓣飘落下游生根~</p></div>
+        </div>
+    </div>
+
+    <div id="vocabView" class="view-container">
+        <div id="vocabContainer">
+            <h2>Vocabulary Book</h2>
+            <div id="vocabListContainer"><p style="color: #a0a8b7;">陪你把沿路的酸，拥抱成温暖~</p></div>
+        </div>
+    </div>
+
+    <script src="script.js" defer></script>
+
+    <!-- ... a lot of your existing code ... -->
+    <script src="script.js"></script>
+    
+    <!-- ADD THIS LINE right before the closing body tag -->
+    <div id="statusIndicator">
+        <div id="waveIndicator">
+            <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+            <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        </div>
+        <div id="pauseIndicator"><span>
+          🙅‍
+        </span></div>
+    </div>
+
+</body>
+</html>
