@@ -1,437 +1,515 @@
-/* =================================
-   Bibi Learning Assistant v2.3 - Final Stylesheet
-   ================================= */
+/* style.css - 整合了高度修复和气泡背景 */
 
-/* --- 1. General Body & Font Styling --- */
+/* === 全局与布局 === */
 body {
-    background-color: #1c1c1e;
-    color: #f5f5f7;
-    font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+    margin: 0;
+    background-color: #1a1a2e; /* 深色背景 */
+    color: #e9f1f7;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
-    box-sizing: border-box;
+    min-height: 100vh;
+    overflow-x: hidden; /* 防止水平滚动 */
 }
 
-h1 {
-    color: #ffffff;
-    margin-bottom: 20px;
+/* [新增] 气泡背景容器 */
+.background-bubbles {
+    position: fixed; /* 固定定位，不随页面滚动 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; /* 占满整个视口 */
+    z-index: -1; /* 这是关键！把它放到所有内容的后面 */
+    overflow: hidden; /* 防止气泡溢出导致滚动条 */
 }
 
-/* --- 2. Controls & Buttons --- */
+header {
+    width: 100%;
+    background-color: #0f3460;
+    padding: 1rem 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    display: flex;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-content {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #e9f1f7;
+}
+
+.logo span {
+    color: #53a8b6;
+}
+
+/* [修改] 让 main 可以随内容变高 */
+main {
+    flex: 1;
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 0; /* 调整内边距 */
+}
+
+/* === 控件区域 === */
 .controls {
     display: flex;
-    gap: 15px;
-    margin-bottom: 25px;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
 }
 
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: 500;
+.view-switcher, .session-controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
     border: none;
     border-radius: 8px;
-    cursor: pointer;
-    color: white;
-    transition: background-color 0.3s ease, transform 0.1s ease;
-}
-button:active {
-    transform: scale(0.98);
-}
-button:disabled {
-    background-color: #555 !important;
-    cursor: not-allowed;
-    opacity: 0.6;
-}
-
-/* Main Control Buttons */
-#controlBtn { background-color: #34c759; }
-#controlBtn:hover { background-color: #3ae365; }
-#controlBtn.active { background-color: #ff3b30; }
-#controlBtn.active:hover { background-color: #ff524a; }
-
-#pauseBtn.pausable { background-color: #ff9500; }
-#pauseBtn.pausable:hover { background-color: #ffab3a; }
-#pauseBtn.resumable { background-color: #5ac8fa; }
-#pauseBtn.resumable:hover { background-color: #7ed6fb; }
-
-/* View Switching Buttons */
-#transBtn, #noteBtn, #vocabBtn {
-    background-color: #555;
-}
-#transBtn:hover, #noteBtn:hover, #vocabBtn:hover {
-    background-color: #666;
-}
-.controls button.active-view {
-    background-color: #007aff;
-    box-shadow: 0 0 8px rgba(0, 122, 255, 0.7);
-}
-
-/* --- 3. View Containers --- */
-.view-container {
-    width: 100%;
-    max-width: 700px;
-    height: 65vh; /* Unified height */
-    min-height: 300px;
-    background-color: #2c2c2e;
-    border-radius: 12px;
-    border: 1px solid #444;
-    padding: 20px 25px;
-    box-sizing: border-box;
-    overflow-y: auto;
-    display: none; /* All hidden by default */
-}
-#translationView {
-    display: block; /* Show translation view by default */
-}
-#liveContentOutput.listening {
-    box-shadow: inset 0 0 10px #34c759;
-}
-
-/* --- 4. Content Styling (Translation, Notes, Vocab) --- */
-/* Translation Content */
-.original-text {
-    color: #e0e0e0;
-    margin: 0 0 8px 0;
-    font-size: 1.1em;
+    font-size: 1rem;
     font-weight: 500;
-    line-height: 1.6;
-}
-.original-text span.word {
     cursor: pointer;
-    transition: background-color 0.2s ease, color 0.2s ease;
-    padding: 2px 3px;
-    margin: -2px -3px; /* Prevent layout shift on hover */
-    border-radius: 4px;
+    transition: all 0.2s ease-in-out;
+    background-color: #1f4068;
+    color: #e9f1f7;
 }
-.original-text span.word:hover {
-    background-color: #007aff;
-    color: #fff;
+
+.btn:hover {
+    background-color: #2a558a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-.translation-text {
-    color: #70c1b3;
-    margin: 0 0 25px 0;
-    font-size: 1.05em;
-    padding-bottom: 20px;
-    border-bottom: 1px dashed #4a4a4c;
+
+.btn:disabled {
+    background-color: #333;
+    color: #888;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }
-.original-text.new-entry, .translation-text.new-entry {
+
+.btn.active-view {
+    background-color: #53a8b6;
+    color: #1a1a2e;
+    font-weight: bold;
+}
+
+#controlBtn.active {
+    background-color: #e43f5a;
+}
+#controlBtn.active:hover {
+    background-color: #ff5772;
+}
+#pauseBtn.pausable:hover {
+    background-color: #ffc107;
+}
+#pauseBtn.resumable {
+    background-color: #28a745;
+}
+#pauseBtn.resumable:hover {
+    background-color: #34c759;
+}
+
+
+/* === 视图容器 === */
+/* 
+   [修改] 移除固定高度和内部滚动，让其自然被内容撑开 
+*/
+.view-container {
+    background-color: #16213e;
+    border: 1px solid #0f3460;
+    border-radius: 12px;
+    padding: 1.5rem;
+    color: #e9f1f7;
+    min-height: 300px; /* 内容为空时的最小高度 */
+    transition: background-color 0.3s ease;
+}
+
+/* ... 其他视图的样式 ... */
+#noteView, #vocabView {
+    display: none;
+}
+
+/* === 翻译与内容区域 === */
+.live-content {
+    font-size: 1.2rem;
+    line-height: 1.8;
+}
+.live-content.listening {
+    border-left: 3px solid #53a8b6;
+    padding-left: 1rem;
+}
+
+.original-text, .translation-text {
     opacity: 0;
     transform: translateY(10px);
     transition: opacity 0.4s ease, transform 0.4s ease;
+    margin: 0.5em 0;
 }
 .original-text.visible, .translation-text.visible {
     opacity: 1;
     transform: translateY(0);
 }
 
-/* Notes & Vocab Headers */
-#noteContainer h2, #vocabContainer h2 {
-    margin-top: 0;
-    color: #ffffff;
-    padding-bottom: 10px;
+.original-text .word {
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+    padding: 2px 0;
+    border-radius: 3px;
 }
-#noteContainer h2 { border-bottom: 2px solid #8e44ad; }
-#vocabContainer h2 { border-bottom: 2px solid #34c759; }
+.original-text .word:hover {
+    background-color: #53a8b6;
+    color: #1a1a2e;
+}
+.translation-text {
+    color: #8ade94; /* 醒目的绿色 */
+    font-size: 1rem;
+    margin-bottom: 1.5em; /* 增加段落间距 */
+    padding-left: 1em;
+    border-left: 2px solid #53a8b64d;
+}
 
-/* Vocab List */
-#vocabListContainer {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 15px;
-}
-.vocab-card {
-    background-color: #3a3a3c;
-    border-radius: 10px;
-    padding: 20px;
-    border-left: 5px solid #34c759;
-    transition: all 0.3s ease;
-}
-.vocab-card.starred {
-    border-left-color: #ff9500;
-    box-shadow: 0 0 10px rgba(255, 149, 0, 0.3);
-}
-.vocab-card .word { font-size: 1.5em; font-weight: bold; color: #5ac8fa; }
-.vocab-card .phonetic { color: #a0a8b7; margin-bottom: 10px; }
-.vocab-card .meaning { color: #f5f5f7; line-height: 1.6; }
-.vocab-card .meaning strong { color: #ff9500; }
-.vocab-card-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 15px;
-    border-top: 1px solid #4a4a4c;
-    padding-top: 10px;
-}
-.vocab-card-actions button {
-    background: none; border: 1px solid #666; color: #a0a8b7;
-    padding: 5px 10px; font-size: 12px; border-radius: 5px;
-}
-.vocab-card-actions button:hover { background-color: #555; color: #fff; }
-.vocab-card-actions .star-btn.starred { background-color: #ff9500; border-color: #ff9500; color: #fff; }
+/* ... 其他所有样式，如弹窗、词汇卡片等 ... */
 
-/* --- 5. Popups & Overlay --- */
-#popupOverlay {
-    position: fixed; top: 0; left: 0;
-    width: 100%; height: 100%;
+/* === 弹窗 === */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
-    z-index: 999;
-    display: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
     opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.popup-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
+.popup {
+    background-color: #1f2a4d;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    width: 90%;
+    max-width: 500px;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+    border: 1px solid #53a8b6;
+}
+/* === 弹窗 === */
+#popupOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    
+    /* 使用 Flexbox 将内部的弹窗居中 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    z-index: 1000;
+    
+    /* 默认完全透明且不可见 */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s 0.3s;
+}
+
+#popupOverlay.visible {
+    opacity: 1;
+    visibility: visible;
     transition: opacity 0.3s ease;
 }
-#popupOverlay.visible {
-    display: block;
-    opacity: 1;
-}
 
-/* Generic Popup Styling */
 .popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.9);
+    background-color: #1f2a4d;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     width: 90%;
-    max-width: 450px;
-    background-color: #3a3a3c;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-    z-index: 1000;
+    max-width: 500px;
+    border: 1px solid #53a8b6;
+
+    /* 默认不显示，并且有一个缩放动画 */
     display: none;
-    opacity: 0;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
 }
-.popup.visible {
+
+/* 关键：只有当 overlay 和 popup 自己都 .visible 时才显示 */
+#popupOverlay.visible .popup.visible {
     display: block;
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+    transform: scale(1);
 }
 
-/* Specific Popup Styles */
-#aiPopup { max-width: 600px; }
-#aiPopupContent .ai-definition {
-    text-align: left;
-    color: #e0e0e0;
-    line-height: 1.6;
-    font-size: 15px;
-    padding: 5px 25px 25px 25px; /* Add padding to content */
-}
-.popup.warning {
-    background-color: #3e3232;
-    border: 1px solid #ff8a80;
-}
-.popup.warning h2 { margin-top: 0; padding: 25px 25px 0 25px; color: #ff8a80; }
-.popup.warning p { padding: 0 25px; }
-
-/* Popup Content & Actions */
-#popupContent, #aiPopupContent {
-    max-height: 60vh;
-    overflow-y: auto;
-}
-#popupContent { padding: 25px; } /* Padding for dictionary popup only */
-
-/* THIS IS THE FIX for button alignment */
 .popup-actions {
+    margin-top: 1.5rem;
     display: flex;
-    justify-content: flex-end; /* Align buttons to the right */
-    gap: 10px;
-    padding: 0 25px 20px 25px;
-    margin-top: 15px;
+    justify-content: flex-end;
+    gap: 1rem;
 }
-.popup.warning .popup-actions {
-    justify-content: center; /* Center buttons in warning popup */
+/* ... 字典、AI弹窗的具体样式 ... */
+.dict-entry .word-title { font-size: 1.8rem; font-weight: bold; color: #53a8b6; }
+.dict-entry .word-phonetic { color: #a0a8b7; margin-bottom: 1rem; }
+.dict-entry .meaning-block { margin-bottom: 1rem; border-left: 2px solid #53a8b6; padding-left: 1rem; }
+.ai-definition { line-height: 1.7; }
+#timeoutWarningPopup p { margin-bottom: 1.5rem; }
+
+
+/* === 笔记本 & 词汇本 === */
+.note-entry, .vocab-card {
+    background-color: #1a1a2e;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-left: 4px solid #53a8b6;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.popup-button {
-    flex-shrink: 0; /* Prevent buttons from shrinking */
-    background-color: #007aff;
+.note-entry:hover, .vocab-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
-.popup-button.secondary {
-    background-color: #555;
-}
-.popup-button.secondary:hover {
-    background-color: #666;
+/* ... 更多笔记本和词汇本的样式 ... */
+.note-header { display: flex; justify-content: space-between; align-items: center; color: #a0a8b7; margin-bottom: 0.5rem; font-size: 0.9rem; }
+.note-header.session-summary span { font-weight: bold; color: #53a8b6; }
+.note-content { line-height: 1.6; }
+.delete-note-btn { float: right; background: none; border: 1px solid #e43f5a; color: #e43f5a; border-radius: 4px; cursor: pointer; opacity: 0.5; transition: opacity 0.2s; }
+.note-entry:hover .delete-note-btn { opacity: 1; }
+.vocab-card .word { font-size: 1.5rem; font-weight: bold; }
+.vocab-card .phonetic { color: #a0a8b7; }
+.vocab-card .meaning { margin: 0.5rem 0; }
+.vocab-card-actions { margin-top: 1rem; text-align: right; }
+.star-btn, .mastered-btn { background: none; border: 1px solid #a0a8b7; color: #a0a8b7; margin-left: 0.5rem; }
+.star-btn.starred { border-color: #ffc107; color: #ffc107; }
+
+/* === 状态指示器 === */
+#statusIndicator { display: none; align-items: center; gap: 0.5rem; }
+#waveIndicator span { width: 4px; height: 16px; background-color: #53a8b6; border-radius: 2px; animation: wave 1.2s infinite ease-in-out; }
+#waveIndicator span:nth-child(2) { animation-delay: -1.1s; }
+#waveIndicator span:nth-child(3) { animation-delay: -1.0s; }
+@keyframes wave { 0%, 40%, 100% { transform: scaleY(0.4); } 20% { transform: scaleY(1); } }
+#pauseIndicator { width: 16px; height: 16px; border: 2px solid #ffc107; border-radius: 50%; display: flex; justify-content: center; align-items: center; }
+#pauseIndicator::after { content: ''; width: 2px; height: 8px; background-color: #ffc107; }
+
+/* === 不支持浏览器的警告信息 === */
+.unsupported-browser-warning {
+    text-align: center;
+    padding: 2rem;
+    background-color: #16213e;
+    border: 1px solid #e43f5a;
+    border-radius: 12px;
+    margin-top: 2rem;
 }
 
-/* Dictionary Entry Formatting */
-.dict-entry .word-title { font-size: 24px; font-weight: bold; color: #fff; }
-.dict-entry .word-phonetic { font-size: 16px; color: #a0a8b7; margin-bottom: 20px; }
-.dict-entry .meaning-block { margin-top: 15px; border-top: 1px solid #4a4a4c; padding-top: 15px; }
-.dict-entry .meaning-block p { margin: 5px 0; }
-.dict-entry .meaning-block strong { color: #8ab4f8; }
-.dict-entry .meaning-block em { color: #ccc; font-style: normal; }
-/* style.css - Add to the end */
-
-/* 5. Enhanced Active View Button Style */
-.controls button.active-view {
-    background-color: #1A535C; /* Deep Green/Teal */
-    color: #F7FFF7; /* Off-white text for better contrast */
-    border: 2px solid #5ac8fa; /* Blue border */
-    box-shadow: 0 0 10px rgba(90, 200, 250, 0.7);
-}
-
-/* 2. AI Loading Spinner Animation */
+/* === 加载动画 (Loader) === */
 .loader {
-    margin: 20px auto;
-    border: 5px solid #4a4a4c; /* Light grey track */
-    border-top: 5px solid #5ac8fa; /* Blue spinner */
+    width: 48px;
+    height: 48px;
+    border: 3px solid #FFF;
     border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    margin: 1rem auto;
+}
+.loader::after {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     width: 40px;
     height: 40px;
-    animation: spin 1s linear infinite;
+    border-radius: 50%;
+    border: 3px solid;
+    border-color: #53a8b6 transparent;
 }
-@keyframes spin {
+@keyframes rotation {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
-/* style.css - 在文件末尾添加 */
 
-/* 4. 笔记本条目和删除按钮样式 */
-.note-entry {
-    background-color: #3a3a3c; /* 比背景稍亮的卡片颜色 */
-    border: 1px solid #555;
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 15px;
-    position: relative; /* 这是为了让删除按钮可以相对于它定位 */
-    transition: all 0.3s ease; /* 配合JS中的删除动画 */
+
+/*
+======================================================
+=== [新增] 来自你提供的酷炫气泡动态背景 ===
+======================================================
+*/
+.bubble {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 25px rgba(255, 255, 255, 0.25);
+  animation: animate_4010 8s ease-in-out infinite;
 }
 
-.note-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: bold;
-    color: #e0e0e5; /* 标题颜色更亮一些 */
-    margin-bottom: 10px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #4a4a4c;
+.bubble:nth-child(2) {
+  position: relative;
+  zoom: 0.45;
+  left: -10px;
+  top: -100px;
+  animation-delay: -4s;
 }
 
-/* 让“课堂总结”的标题颜色更突出 */
-.note-header.session-summary span:first-child {
-    color: #5ac8fa; /* 使用我们主题的蓝色 */
+.bubble:nth-child(3) {
+  position: relative;
+  zoom: 0.45;
+  right: -80px;
+  top: -300px;
+  animation-delay: -6s;
 }
 
-.note-content {
-    color: #c0c0c5; /* 笔记正文颜色 */
-    line-height: 1.6;
+.bubble:nth-child(4) {
+  position: relative;
+  zoom: 0.35;
+  left: -120px;
+  bottom: -200px;
+  animation-delay: -3s;
 }
 
-.timestamp {
+.bubble:nth-child(5) {
+  position: relative;
+  zoom: 0.5;
+  left: 0px;
+  top: 200px;
+  animation-delay: -5s;
+}
+
+@keyframes animate_4010 {
+  0%,100% {
+    transform: translateY(-20px);
+  }
+
+  50% {
+    transform: translateY(20px);
+  }
+}
+
+.bubble::before {
+  content: '';
+  position: absolute;
+  top: 50px;
+  left: 45px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #fff;
+  z-index: 10;
+  filter: blur(2px);
+}
+
+.bubble::after {
+  content: '';
+  position: absolute;
+  top: 80px;
+  left: 80px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  z-index: 10;
+  filter: blur(2px);
+}
+
+.bubble span {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.bubble span:nth-child(1) {
+  inset: 10px;
+  border-left: 15px solid #0fb4ff;
+  filter: blur(8px);
+}
+
+.bubble span:nth-child(2) {
+  inset: 10px;
+  border-right: 15px solid #ff4484;
+  filter: blur(8px);
+}
+
+.bubble span:nth-child(3) {
+  inset: 10px;
+  border-top: 15px solid #ffeb3b;
+  filter: blur(8px);
+}
+
+.bubble span:nth-child(4) {
+  inset: 30px;
+  border-left: 15px solid #ff4484;
+  filter: blur(12px);
+}
+
+.bubble span:nth-child(5) {
+  inset: 10px;
+  border-bottom: 10px solid #fff;
+  filter: blur(8px);
+  transform: rotate(330deg);
+}
+/* 添加到你的 style.css 文件末尾 */
+
+/* 临时识别文本的样式 (灰色) */
+.original-text.interim {
+    color: #6c7a97;
+    opacity: 0.8;
+}
+
+/* AI 优化中的指示器样式 */
+.ai-thinking-indicator {
+    color: #53a8b6;
     font-size: 0.8em;
-    color: #8e8e93; /* 时间戳用灰色，不那么显眼 */
+    margin-left: 8px;
+    display: inline-block;
+    animation: blink 1.5s infinite;
 }
 
-/* 删除按钮的样式 */
-.delete-note-btn {
-    position: absolute; /* 相对于 .note-entry 定位 */
-    top: 12px;
-    right: 12px;
-    background: none;
-    border: 1px solid #888;
-    color: #aaa;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 12px;
-    padding: 3px 8px;
-    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
 }
 
-/* 鼠标悬浮在删除按钮上时的效果 */
-.delete-note-btn:hover {
-    background-color: #e53935; /* 危险的红色 */
-    color: #fff;
-    border-color: #e53935;
+/* AI 优化完成后的翻译文本样式 */
+.translation-text.ai-enhanced {
+    color: #00ffff; /* 恢复更明亮的颜色 */
+    /* 我们可以加一个微妙的背景高亮动画，表示它刚被更新 */
+    animation: highlight 1s ease-out;
 }
 
-/* 笔记本为空时的默认提示信息样式 */
-.default-note-message {
-    color: #a0a8b7;
-    text-align: center;
-    padding-top: 50px;
-    font-size: 1.1em;
-}
-
-/* --- Dynamic Decorations & Feedback --- */
-
-/* 1. Animated Gradient Background */
-body {
-    background: linear-gradient(-45deg, #1d2b4b, #2c3e50, #131a28, #34495e);
-    background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
-}
-
-@keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* 2. Button Click Feedback */
-button, .word, .vocab-card-actions button {
-    transition: transform 0.1s ease, box-shadow 0.2s ease;
-}
-
-button:active, .word:active, .vocab-card-actions button:active {
-    transform: scale(0.95); /* Shrinks the button on click */
-    box-shadow: none; /* Optional: remove shadow on click */
-}
-
-/* 3. Style for the new Status Indicator */
-#statusIndicator {
-    position: fixed;
-    bottom: 20px;
-    right: 25px;
-    z-index: 1000;
-    display: none; /* Initially hidden */
-    align-items: center;
-    justify-content: center;
-    height: 50px;
-    width: 100px;
-}
-
-/* The 6-dot wave container */
-#waveIndicator {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-#waveIndicator .dot {
-    width: 8px;
-    height: 8px;
-    background-color: #00ff9d;
-    border-radius: 50%;
-    animation: wave 1.2s ease-in-out infinite alternate;
-}
-
-/* Stagger the animation for each dot to create the wave */
-#waveIndicator .dot:nth-child(2) { animation-delay: -1.0s; }
-#waveIndicator .dot:nth-child(3) { animation-delay: -0.8s; }
-#waveIndicator .dot:nth-child(4) { animation-delay: -0.6s; }
-#waveIndicator .dot:nth-child(5) { animation-delay: -0.4s; }
-#waveIndicator .dot:nth-child(6) { animation-delay: -0.2s; }
-
-@keyframes wave {
-    from { transform: translateY(-10px); }
-    to { transform: translateY(10px); }
-}
-
-/* The pause symbol */
-#pauseIndicator {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border: 2px solid #ffc107;
-    border-radius: 50%;
-    color: #ffc107;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-#pauseIndicator span {
-    letter-spacing: -2px; /* Bring the two bars closer */
+@keyframes highlight {
+    from {
+        background-color: rgba(83, 168, 182, 0.2);
+    }
+    to {
+        background-color: transparent;
+    }
 }

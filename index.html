@@ -1,90 +1,100 @@
 
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Learning Assistant</title>
+    <title>Bibi Learning Assistant</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- 弹窗遮罩层 (共用) -->
-    <div id="popupOverlay"></div>
+    <!-- [新增] 动态气泡背景 -->
+    <div class="background-bubbles">
+        <div class="bubble"><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="bubble"><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="bubble"><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="bubble"><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="bubble"><span></span><span></span><span></span><span></span><span></span></div>
+    </div>
 
-    <!-- Popup 1: 单词快速词典 -->
-    <div id="dictionaryPopup" class="popup">
-        <div id="popupContent"></div>
-        <div class="popup-actions">
-            <button id="aiContextSearchBtn" class="popup-button secondary">AI 上下文分析</button>
-            <button id="addVocabBtn" class="popup-button">添加单词本</button>
+    <!-- [修改] 弹窗遮罩层现在是所有弹窗的容器 -->
+    <div id="popupOverlay">
+        
+        <!-- Popup 1: 单词快速词典 -->
+        <div id="dictionaryPopup" class="popup">
+            <div id="popupContent"></div>
+            <div class="popup-actions">
+                <button id="aiContextSearchBtn" class="btn">AI 上下文分析</button>
+                <button id="addVocabBtn" class="btn">添加单词本</button>
+            </div>
         </div>
-    </div>
 
-    <!-- NEW Popup 2: AI 上下文分析结果 -->
-    <div id="aiPopup" class="popup">
-        <div id="aiPopupContent"></div>
-    </div>
-
-    <!-- NEW Popup 3: 超时警告 -->
-    <div id="timeoutWarningPopup" class="popup warning">
-        <h2>Bibi 即将Kiss Goodbye...</h2>
-        <p>已经有一段时间没有听到你的声音了。</p>
-        <div class="popup-actions">
-            <button id="resumeBtn" class="popup-button">我还活着</button>
-            <button id="endSessionBtn" class="popup-button secondary">结束课程</button>
+        <!-- Popup 2: AI 上下文分析结果 -->
+        <div id="aiPopup" class="popup">
+            <div id="aiPopupContent"></div>
         </div>
-    </div>
 
-    <h1>Bibi 学习助手 3.3 (Pro)</h1>
-
-    <div class="controls">
-        <button id="controlBtn">开始上课</button>
-        <button id="pauseBtn" disabled>Pause</button>
-        <button id="transBtn" class="active-view">同声传译</button> 
-        <button id="noteBtn">笔记本</button>  
-        <button id="vocabBtn">单词本</button> 
-    </div>
-
-    <div id="translationView" class="view-container">
-        <div id="liveContentOutput">
-            <p style="color: #a0a8b7;">这趟旅程若是开心，也是无愧这一生~</p>
+        <!-- Popup 3: 超时警告 -->
+        <div id="timeoutWarningPopup" class="popup">
+            <h2>Bibi 即将Kiss Goodbye...</h2>
+            <p>已经有一段时间没有听到你的声音了。</p>
+            <div class="popup-actions">
+                <button id="resumeBtn" class="btn">我还活着</button>
+                <button id="endSessionBtn" class="btn">结束课程</button>
+            </div>
         </div>
+
     </div>
 
-    <div id="noteView" class="view-container">
-        <div id="noteContainer">
-            <h2>Auto-Generated Notes</h2>
-            <div id="noteOutput"><p style="color: #a0a8b7;">花瓣飘落下游生根~</p></div>
+    <header>
+        <div class="header-content">
+            <div class="logo">Bibi Learning <span>Assistant</span></div>
+            <div class="controls">
+                <div class="session-controls">
+                    <button id="controlBtn" class="btn">开始上课</button>
+                    <button id="pauseBtn" class="btn" disabled>暂停</button>
+                    <div id="statusIndicator">
+                        <div id="waveIndicator">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <div id="pauseIndicator"></div>
+                    </div>
+                </div>
+                <div class="view-switcher">
+                    <button id="transBtn" class="btn active-view">同声传译</button> 
+                    <button id="noteBtn" class="btn">笔记本</button>  
+                    <button id="vocabBtn" class="btn">单词本</button>
+                </div>
+            </div>
         </div>
-    </div>
+    </header>
 
-    <div id="vocabView" class="view-container">
-        <div id="vocabContainer">
-            <h2>Vocabulary Book</h2>
-            <div id="vocabListContainer"><p style="color: #a0a8b7;">陪你把沿路的酸，拥抱成温暖~</p></div>
+    <main>
+        <div id="translationView" class="view-container">
+            <div id="liveContentOutput" class="live-content">
+                <p style="color: #a0a8b7;">点击“开始上课”后，这里将实时显示语音识别和翻译结果。</p>
+            </div>
         </div>
-    </div>
+
+        <div id="noteView" class="view-container">
+            <div id="noteOutput">
+                <p class="default-note-message">你的笔记将在这里显示。</p>
+            </div>
+        </div>
+
+        <div id="vocabView" class="view-container">
+            <div id="vocabListContainer">
+                <p style="color: #a0a8b7;">你收藏的单词会出现在这里。</p>
+            </div>
+        </div>
+    </main>
 
     <script src="script.js" defer></script>
-
-    <!-- ... a lot of your existing code ... -->
-    <script src="script.js"></script>
-    
-    <!-- ADD THIS LINE right before the closing body tag -->
-    <div id="statusIndicator">
-        <div id="waveIndicator">
-            <div class="dot"></div><div class="dot"></div><div class="dot"></div>
-            <div class="dot"></div><div class="dot"></div><div class="dot"></div>
-        </div>
-        <div id="pauseIndicator"><span>
-          🙅‍
-        </span></div>
-    </div>
 
 </body>
 </html>
