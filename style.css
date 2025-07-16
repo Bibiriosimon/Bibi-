@@ -479,7 +479,8 @@ main {
 /* 添加到你的 style.css 文件末尾 */
 
 /* 临时识别文本的样式 (灰色) */
-.original-text.interim {
+.original-text.interim,
+.translation-text.interim {
     color: #6c7a97;
     opacity: 0.8;
 }
@@ -512,4 +513,121 @@ main {
     to {
         background-color: transparent;
     }
+}
+/* style.css */
+
+/* ================================== */
+/* == 新增：自定义模态框样式 == */
+/* ================================== */
+
+/* 遮罩层：覆盖整个屏幕，半透明背景 */
+.modal-overlay {
+    position: fixed; /* 固定定位，不随页面滚动 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(18, 20, 38, 0.7); /* 半透明深色背景 */
+    display: none; /* 默认隐藏 */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* 确保在最顶层 */
+    backdrop-filter: blur(5px); /* 毛玻璃效果 */
+}
+
+/* 模态框内容区域 */
+.modal-content {
+    background-color: #242847; /* 更深的背景色 */
+    padding: 2.5rem;
+    border-radius: 12px;
+    border: 1px solid #4a558c;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    width: 90%;
+    max-width: 450px;
+    text-align: center;
+    transform: scale(0.95);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* 当模态框显示时，内容框的动画效果 */
+.modal-overlay.visible .modal-content {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: #e0e5ff;
+    font-size: 1.5rem;
+}
+
+.modal-content p {
+    margin-bottom: 1.5rem;
+    color: #a0a8b7;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* 输入框样式 */
+.modal-content input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid #4a558c;
+    background-color: #121426;
+    color: #e0e5ff;
+    box-sizing: border-box; /* 确保padding不会撑大宽度 */
+    margin-bottom: 1.5rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.modal-content input[type="text"]:focus {
+    outline: none;
+    border-color: #8a99ff;
+    box-shadow: 0 0 0 3px rgba(138, 153, 255, 0.25);
+}
+
+/* 按钮容器 */
+.modal-actions {
+    display: flex;
+    justify-content: flex-end; /* 按钮靠右对齐 */
+    gap: 1rem; /* 按钮之间的间距 */
+}
+
+/* 模态框内的按钮通用样式 */
+.modal-actions button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+/* 次要按钮 (取消) */
+.modal-actions .btn-secondary {
+    background-color: transparent;
+    border: 1px solid #4a558c;
+    color: #a0a8b7;
+}
+
+.modal-actions .btn-secondary:hover {
+    background-color: #313763;
+}
+
+/* 主要按钮 (确定) */
+.modal-actions .btn-primary {
+    background-color: #6c63ff; /* 主题色 */
+    color: #fff;
+}
+
+.modal-actions .btn-primary:hover {
+    background-color: #5850e0;
+}
+
+.modal-actions button:active {
+    transform: scale(0.98);
 }
