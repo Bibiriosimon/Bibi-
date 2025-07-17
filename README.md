@@ -15,4 +15,6 @@ Pure English class  for non-Eng students
 
 PS：我自己的api接口在代码中已经给出，现在本人还没有成熟的后端技术，所以展示出了key，防君子不防小人，希望大家使用不要窃取。后端和安全版本会在后续给出，这个版本暂时更适配PC，Edge，Google，safari浏览器都可以正常运作。
 
+最新版本接入DEEPL，如果显示<DeepL翻译失败>,打开https://cors-anywhere.herokuapp.com/corsdemo，点击Request temporary access to demo sever
+
 动手点个星标吧~
