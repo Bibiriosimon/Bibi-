@@ -1,9 +1,8 @@
-
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bibi Learning Assistant</title>
+    <title>Bibi SIMUINTER Assistant</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +12,7 @@
 </head>
 <body>
 
-    <!-- [新增] 动态气泡背景 -->
+    <!-- 动态气泡背景 -->
     <div class="background-bubbles">
         <div class="bubble"><span></span><span></span><span></span><span></span><span></span></div>
         <div class="bubble"><span></span><span></span><span></span><span></span><span></span></div>
@@ -22,7 +21,7 @@
         <div class="bubble"><span></span><span></span><span></span><span></span><span></span></div>
     </div>
 
-    <!-- [修改] 弹窗遮罩层现在是所有弹窗的容器 -->
+    <!-- 弹窗遮罩层 -->
     <div id="popupOverlay">
         
         <!-- Popup 1: 单词快速词典 -->
@@ -53,7 +52,7 @@
 
     <header>
         <div class="header-content">
-            <div class="logo">Bibi Learning <span>Assistant</span></div>
+            <div class="logo">Bibi SIMU-INT <span>Assistant</span></div>
             <div class="controls">
                 <div class="session-controls">
                     <button id="controlBtn" class="btn">开始上课</button>
@@ -94,20 +93,102 @@
         </div>
     </main>
 
-    <script src="script.js" defer></script>
-<div id="courseNameModal" class="modal-overlay">
-    <div class="modal-content">
-        <h2>开始新课程</h2>
-        <p>请输入本堂课的主题，以获得更精准的翻译和笔记。</p>
-        <input type="text" id="courseNameInput" placeholder="例如：Application Of AI">
-        <div class="modal-actions">
-            <button id="modalCancelBtn" class="btn-secondary">取消</button>
-            <button id="modalConfirmBtn" class="btn-primary">确定</button>
+    <!-- 课程名称弹窗 -->
+    <div id="courseNameModal" class="modal-overlay">
+        <div class="modal-content">
+            <h2>开始新课程</h2>
+            <p>请输入本堂课的主题，以获得更精准的翻译和笔记。</p>
+            <input type="text" id="courseNameInput" placeholder="例如：Application Of AI">
+            <div class="modal-actions">
+                <button id="modalCancelBtn" class="btn-secondary">取消</button>
+                <button id="modalConfirmBtn" class="btn-primary">确定</button>
+            </div>
         </div>
     </div>
-</div>
+    
+    <!-- ✨ 新增：加载动画遮罩层 -->
+    <div id="spinnerOverlay" class="spinner-overlay">
+        <div class="spinner">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <p id="spinnerMessage"></p>
+    </div>
+    
+    <!-- 模式提示框 -->
+    <div id="mode-indicator"></div>
 
-
-<script src="script.js"></script>
+    <!-- 模式切换开关 (固定在右上角) -->
+    <div class="toggle-cont">
+        <input class="toggle-input" id="mode-switch" type="checkbox" />
+        <label class="toggle-label" for="mode-switch">
+            <div class="cont-icon">
+            </div>
+        </label>
+    </div>
+    
+    <!-- 赛博朋克名片 (固定在右下角) -->
+    <div class="container noselect">
+        <div class="canvas">
+            <div class="tracker tr-1"></div>
+            <div class="tracker tr-2"></div>
+            <div class="tracker tr-3"></div>
+            <div class="tracker tr-4"></div>
+            <div class="tracker tr-5"></div>
+            <div class="tracker tr-6"></div>
+            <div class="tracker tr-7"></div>
+            <div class="tracker tr-8"></div>
+            <div class="tracker tr-9"></div>
+            <div class="tracker tr-10"></div>
+            <div class="tracker tr-11"></div>
+            <div class="tracker tr-12"></div>
+            <div class="tracker tr-13"></div>
+            <div class="tracker tr-14"></div>
+            <div class="tracker tr-15"></div>
+            <div class="tracker tr-16"></div>
+            <div class="tracker tr-17"></div>
+            <div class="tracker tr-18"></div>
+            <div class="tracker tr-19"></div>
+            <div class="tracker tr-20"></div>
+            <div class="tracker tr-21"></div>
+            <div class="tracker tr-22"></div>
+            <div class="tracker tr-23"></div>
+            <div class="tracker tr-24"></div>
+            <div class="tracker tr-25"></div>
+            <div id="card">
+                <div class="card-content">
+                    <div class="card-glare"></div>
+                    <div class="cyber-lines">
+                        <span></span><span></span><span></span><span></span>
+                    </div>
+                    <p id="prompt">WANNA BE IN IT FOREVER GIRL</p>
+                    <div class="title">YOU KNOW<br>I ADORE YA</div>
+                    <div class="glowing-elements">
+                        <div class="glow-1"></div>
+                        <div class="glow-2"></div>
+                        <div class="glow-3"></div>
+                    </div>
+                    <div class="subtitle">
+                        <span>version 3.3</span>
+                        <span class="highlight">BIBI</span>
+                    </div>
+                    <div class="card-particles">
+                        <span></span><span></span><span></span><span></span><span></span><span></span>
+                    </div>
+                    <div class="corner-elements">
+                        <span></span><span></span><span></span><span></span>
+                    </div>
+                    <div class="scan-line"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+  
 </body>
 </html>
