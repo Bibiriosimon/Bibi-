@@ -1,4 +1,4 @@
-# Bibi-
+# Bibi-SIMU-INT Assistant
 Pure English class  for non-Eng students
 
 这是在伯克利留学期间的灵感作品
