@@ -2,278 +2,278 @@
 
 /* === 全局与布局 === */
 body {
-    font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
-    margin: 0;
-    background-color: #1a1a2e; /* 深色背景 */
-    color: #e9f1f7;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    overflow-x: hidden; /* 防止水平滚动 */
+  font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+  margin: 0;
+  background-color: #1a1a2e; /* 深色背景 */
+  color: #e9f1f7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  overflow-x: hidden; /* 防止水平滚动 */
 }
 
 /* [新增] 气泡背景容器 */
 .background-bubbles {
-    position: fixed; /* 固定定位，不随页面滚动 */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh; /* 占满整个视口 */
-    z-index: -1; /* 这是关键！把它放到所有内容的后面 */
-    overflow: hidden; /* 防止气泡溢出导致滚动条 */
+  position: fixed; /* 固定定位，不随页面滚动 */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh; /* 占满整个视口 */
+  z-index: -1; /* 这是关键！把它放到所有内容的后面 */
+  overflow: hidden; /* 防止气泡溢出导致滚动条 */
 }
 
 header {
-    width: 100%;
-    background-color: #0f3460;
-    padding: 1rem 2rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-    display: flex;
-    justify-content: center;
-    position: sticky;
-    top: 0;
-    z-index: 100;
+  width: 100%;
+  background-color: #0f3460;
+  padding: 1rem 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .header-content {
-    width: 100%;
-    max-width: 900px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #e9f1f7;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #e9f1f7;
 }
 
 .logo span {
-    color: #53a8b6;
+  color: #53a8b6;
 }
 
 /* [修改] 让 main 可以随内容变高 */
 main {
-    flex: 1;
-    width: 100%;
-    max-width: 900px;
-    display: flex;
-    flex-direction: column;
-    padding: 2rem 0; /* 调整内边距 */
+  flex: 1;
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 0; /* 调整内边距 */
 }
 
 /* === 控件区域 === */
 .controls {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .view-switcher, .session-controls {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
 }
 
 .btn {
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    background-color: #1f4068;
-    color: #e9f1f7;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  background-color: #1f4068;
+  color: #e9f1f7;
 }
 
 .btn:hover {
-    background-color: #2a558a;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #2a558a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .btn:disabled {
-    background-color: #333;
-    color: #888;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
+  background-color: #333;
+  color: #888;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 .btn.active-view {
-    background-color: #53a8b6;
-    color: #1a1a2e;
-    font-weight: bold;
+  background-color: #53a8b6;
+  color: #1a1a2e;
+  font-weight: bold;
 }
 
 #controlBtn.active {
-    background-color: #e43f5a;
+  background-color: #e43f5a;
 }
 #controlBtn.active:hover {
-    background-color: #ff5772;
+  background-color: #ff5772;
 }
 #pauseBtn.pausable:hover {
-    background-color: #ffc107;
+  background-color: #ffc107;
 }
 #pauseBtn.resumable {
-    background-color: #28a745;
+  background-color: #28a745;
 }
 #pauseBtn.resumable:hover {
-    background-color: #34c759;
+  background-color: #34c759;
 }
 
 
 /* === 视图容器 === */
 /* 
-   [修改] 移除固定高度和内部滚动，让其自然被内容撑开 
+ [修改] 移除固定高度和内部滚动，让其自然被内容撑开 
 */
 .view-container {
-    background-color: #16213e;
-    border: 1px solid #0f3460;
-    border-radius: 12px;
-    padding: 1.5rem;
-    color: #e9f1f7;
-    min-height: 300px; /* 内容为空时的最小高度 */
-    transition: background-color 0.3s ease;
+  background-color: #16213e;
+  border: 1px solid #0f3460;
+  border-radius: 12px;
+  padding: 1.5rem;
+  color: #e9f1f7;
+  min-height: 300px; /* 内容为空时的最小高度 */
+  transition: background-color 0.3s ease;
 }
 
 /* ... 其他视图的样式 ... */
 #noteView, #vocabView {
-    display: none;
+  display: none;
 }
 
 /* === 翻译与内容区域 === */
 .live-content {
-    font-size: 1.2rem;
-    line-height: 1.8;
+  font-size: 1.2rem;
+  line-height: 1.8;
 }
 .live-content.listening {
-    border-left: 3px solid #53a8b6;
-    padding-left: 1rem;
+  border-left: 3px solid #53a8b6;
+  padding-left: 1rem;
 }
 
 .original-text, .translation-text {
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.4s ease, transform 0.4s ease;
-    margin: 0.5em 0;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  margin: 0.5em 0;
 }
 .original-text.visible, .translation-text.visible {
-    opacity: 1;
-    transform: translateY(0);
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .original-text .word {
-    cursor: pointer;
-    transition: background-color 0.2s, color 0.2s;
-    padding: 2px 0;
-    border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+  padding: 2px 0;
+  border-radius: 3px;
 }
 .original-text .word:hover {
-    background-color: #53a8b6;
-    color: #1a1a2e;
+  background-color: #53a8b6;
+  color: #1a1a2e;
 }
 .translation-text {
-    color: #8ade94; /* 醒目的绿色 */
-    font-size: 1rem;
-    margin-bottom: 1.5em; /* 增加段落间距 */
-    padding-left: 1em;
-    border-left: 2px solid #53a8b64d;
+  color: #8ade94; /* 醒目的绿色 */
+  font-size: 1rem;
+  margin-bottom: 1.5em; /* 增加段落间距 */
+  padding-left: 1em;
+  border-left: 2px solid #53a8b64d;
 }
 
 /* ... 其他所有样式，如弹窗、词汇卡片等 ... */
 
 /* === 弹窗 === */
 .popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 .popup-overlay.visible {
-    opacity: 1;
-    visibility: visible;
+  opacity: 1;
+  visibility: visible;
 }
 .popup {
-    background-color: #1f2a4d;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    width: 90%;
-    max-width: 500px;
-    transform: scale(0.95);
-    transition: transform 0.3s ease;
-    border: 1px solid #53a8b6;
+  background-color: #1f2a4d;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  width: 90%;
+  max-width: 500px;
+  transform: scale(0.95);
+  transition: transform 0.3s ease;
+  border: 1px solid #53a8b6;
 }
 /* === 弹窗 === */
 #popupOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    
-    /* 使用 Flexbox 将内部的弹窗居中 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    z-index: 1000;
-    
-    /* 默认完全透明且不可见 */
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0s 0.3s;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  
+  /* 使用 Flexbox 将内部的弹窗居中 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  z-index: 1000;
+  
+  /* 默认完全透明且不可见 */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0s 0.3s;
 }
 
 #popupOverlay.visible {
-    opacity: 1;
-    visibility: visible;
-    transition: opacity 0.3s ease;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease;
 }
 
 .popup {
-    background-color: #1f2a4d;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    width: 90%;
-    max-width: 500px;
-    border: 1px solid #53a8b6;
+  background-color: #1f2a4d;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  width: 90%;
+  max-width: 500px;
+  border: 1px solid #53a8b6;
 
-    /* 默认不显示，并且有一个缩放动画 */
-    display: none;
-    transform: scale(0.95);
-    transition: transform 0.3s ease;
+  /* 默认不显示，并且有一个缩放动画 */
+  display: none;
+  transform: scale(0.95);
+  transition: transform 0.3s ease;
 }
 
 /* 关键：只有当 overlay 和 popup 自己都 .visible 时才显示 */
 #popupOverlay.visible .popup.visible {
-    display: block;
-    transform: scale(1);
+  display: block;
+  transform: scale(1);
 }
 
 .popup-actions {
-    margin-top: 1.5rem;
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
 }
 /* ... 字典、AI弹窗的具体样式 ... */
 .dict-entry .word-title { font-size: 1.8rem; font-weight: bold; color: #53a8b6; }
@@ -285,16 +285,16 @@ main {
 
 /* === 笔记本 & 词汇本 === */
 .note-entry, .vocab-card {
-    background-color: #1a1a2e;
-    border-radius: 8px;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    border-left: 4px solid #53a8b6;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background-color: #1a1a2e;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-left: 4px solid #53a8b6;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .note-entry:hover, .vocab-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 /* ... 更多笔记本和词汇本的样式 ... */
 .note-header { display: flex; justify-content: space-between; align-items: center; color: #a0a8b7; margin-bottom: 0.5rem; font-size: 0.9rem; }
@@ -320,42 +320,42 @@ main {
 
 /* === 不支持浏览器的警告信息 === */
 .unsupported-browser-warning {
-    text-align: center;
-    padding: 2rem;
-    background-color: #16213e;
-    border: 1px solid #e43f5a;
-    border-radius: 12px;
-    margin-top: 2rem;
+  text-align: center;
+  padding: 2rem;
+  background-color: #16213e;
+  border: 1px solid #e43f5a;
+  border-radius: 12px;
+  margin-top: 2rem;
 }
 
 /* === 加载动画 (Loader) === */
 .loader {
-    width: 48px;
-    height: 48px;
-    border: 3px solid #FFF;
-    border-radius: 50%;
-    display: inline-block;
-    position: relative;
-    box-sizing: border-box;
-    animation: rotation 1s linear infinite;
-    margin: 1rem auto;
+  width: 48px;
+  height: 48px;
+  border: 3px solid #FFF;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  margin: 1rem auto;
 }
 .loader::after {
-    content: '';
-    box-sizing: border-box;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 3px solid;
-    border-color: #53a8b6 transparent;
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 3px solid;
+  border-color: #53a8b6 transparent;
 }
 @keyframes rotation {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 
@@ -365,154 +365,154 @@ main {
 ======================================================
 */
 .bubble {
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  box-shadow: inset 0 0 25px rgba(255, 255, 255, 0.25);
-  animation: animate_4010 8s ease-in-out infinite;
+position: absolute;
+width: 200px;
+height: 200px;
+border-radius: 50%;
+box-shadow: inset 0 0 25px rgba(255, 255, 255, 0.25);
+animation: animate_4010 8s ease-in-out infinite;
 }
 
 .bubble:nth-child(2) {
-  position: relative;
-  zoom: 0.45;
-  left: -10px;
-  top: -100px;
-  animation-delay: -4s;
+position: relative;
+zoom: 0.45;
+left: -10px;
+top: -100px;
+animation-delay: -4s;
 }
 
 .bubble:nth-child(3) {
-  position: relative;
-  zoom: 0.45;
-  right: -80px;
-  top: -300px;
-  animation-delay: -6s;
+position: relative;
+zoom: 0.45;
+right: -80px;
+top: -300px;
+animation-delay: -6s;
 }
 
 .bubble:nth-child(4) {
-  position: relative;
-  zoom: 0.35;
-  left: -120px;
-  bottom: -200px;
-  animation-delay: -3s;
+position: relative;
+zoom: 0.35;
+left: -120px;
+bottom: -200px;
+animation-delay: -3s;
 }
 
 .bubble:nth-child(5) {
-  position: relative;
-  zoom: 0.5;
-  left: 0px;
-  top: 200px;
-  animation-delay: -5s;
+position: relative;
+zoom: 0.5;
+left: 0px;
+top: 200px;
+animation-delay: -5s;
 }
 
 @keyframes animate_4010 {
-  0%,100% {
-    transform: translateY(-20px);
-  }
+0%,100% {
+  transform: translateY(-20px);
+}
 
-  50% {
-    transform: translateY(20px);
-  }
+50% {
+  transform: translateY(20px);
+}
 }
 
 .bubble::before {
-  content: '';
-  position: absolute;
-  top: 50px;
-  left: 45px;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: #fff;
-  z-index: 10;
-  filter: blur(2px);
+content: '';
+position: absolute;
+top: 50px;
+left: 45px;
+width: 30px;
+height: 30px;
+border-radius: 50%;
+background: #fff;
+z-index: 10;
+filter: blur(2px);
 }
 
 .bubble::after {
-  content: '';
-  position: absolute;
-  top: 80px;
-  left: 80px;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #fff;
-  z-index: 10;
-  filter: blur(2px);
+content: '';
+position: absolute;
+top: 80px;
+left: 80px;
+width: 20px;
+height: 20px;
+border-radius: 50%;
+background: #fff;
+z-index: 10;
+filter: blur(2px);
 }
 
 .bubble span {
-  position: absolute;
-  border-radius: 50%;
+position: absolute;
+border-radius: 50%;
 }
 
 .bubble span:nth-child(1) {
-  inset: 10px;
-  border-left: 15px solid #0fb4ff;
-  filter: blur(8px);
+inset: 10px;
+border-left: 15px solid #0fb4ff;
+filter: blur(8px);
 }
 
 .bubble span:nth-child(2) {
-  inset: 10px;
-  border-right: 15px solid #ff4484;
-  filter: blur(8px);
+inset: 10px;
+border-right: 15px solid #ff4484;
+filter: blur(8px);
 }
 
 .bubble span:nth-child(3) {
-  inset: 10px;
-  border-top: 15px solid #ffeb3b;
-  filter: blur(8px);
+inset: 10px;
+border-top: 15px solid #ffeb3b;
+filter: blur(8px);
 }
 
 .bubble span:nth-child(4) {
-  inset: 30px;
-  border-left: 15px solid #ff4484;
-  filter: blur(12px);
+inset: 30px;
+border-left: 15px solid #ff4484;
+filter: blur(12px);
 }
 
 .bubble span:nth-child(5) {
-  inset: 10px;
-  border-bottom: 10px solid #fff;
-  filter: blur(8px);
-  transform: rotate(330deg);
+inset: 10px;
+border-bottom: 10px solid #fff;
+filter: blur(8px);
+transform: rotate(330deg);
 }
 /* 添加到你的 style.css 文件末尾 */
 
 /* 临时识别文本的样式 (灰色) */
 .original-text.interim,
 .translation-text.interim {
-    color: #6c7a97;
-    opacity: 0.8;
+  color: #6c7a97;
+  opacity: 0.8;
 }
 
 /* AI 优化中的指示器样式 */
 .ai-thinking-indicator {
-    color: #53a8b6;
-    font-size: 0.8em;
-    margin-left: 8px;
-    display: inline-block;
-    animation: blink 1.5s infinite;
+  color: #53a8b6;
+  font-size: 0.8em;
+  margin-left: 8px;
+  display: inline-block;
+  animation: blink 1.5s infinite;
 }
 
 @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
 }
 
 /* AI 优化完成后的翻译文本样式 */
 .translation-text.ai-enhanced {
-    color: #00ffff; /* 恢复更明亮的颜色 */
-    /* 我们可以加一个微妙的背景高亮动画，表示它刚被更新 */
-    animation: highlight 1s ease-out;
+  color: #00ffff; /* 恢复更明亮的颜色 */
+  /* 我们可以加一个微妙的背景高亮动画，表示它刚被更新 */
+  animation: highlight 1s ease-out;
 }
 
 @keyframes highlight {
-    from {
-        background-color: rgba(83, 168, 182, 0.2);
-    }
-    to {
-        background-color: transparent;
-    }
+  from {
+      background-color: rgba(83, 168, 182, 0.2);
+  }
+  to {
+      background-color: transparent;
+  }
 }
 /* style.css */
 
@@ -522,130 +522,130 @@ main {
 
 /* 遮罩层：覆盖整个屏幕，半透明背景 */
 .modal-overlay {
-    position: fixed; /* 固定定位，不随页面滚动 */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(18, 20, 38, 0.7); /* 半透明深色背景 */
-    display: none; /* 默认隐藏 */
-    justify-content: center;
-    align-items: center;
-    z-index: 1000; /* 确保在最顶层 */
-    backdrop-filter: blur(5px); /* 毛玻璃效果 */
+  position: fixed; /* 固定定位，不随页面滚动 */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(18, 20, 38, 0.7); /* 半透明深色背景 */
+  display: none; /* 默认隐藏 */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* 确保在最顶层 */
+  backdrop-filter: blur(5px); /* 毛玻璃效果 */
 }
 
 /* 模态框内容区域 */
 .modal-content {
-    background-color: #242847; /* 更深的背景色 */
-    padding: 2.5rem;
-    border-radius: 12px;
-    border: 1px solid #4a558c;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    width: 90%;
-    max-width: 450px;
-    text-align: center;
-    transform: scale(0.95);
-    opacity: 0;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+  background-color: #242847; /* 更深的背景色 */
+  padding: 2.5rem;
+  border-radius: 12px;
+  border: 1px solid #4a558c;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  width: 90%;
+  max-width: 450px;
+  text-align: center;
+  transform: scale(0.95);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 /* 当模态框显示时，内容框的动画效果 */
 .modal-overlay.visible .modal-content {
-    transform: scale(1);
-    opacity: 1;
+  transform: scale(1);
+  opacity: 1;
 }
 
 .modal-content h2 {
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-    color: #e0e5ff;
-    font-size: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: #e0e5ff;
+  font-size: 1.5rem;
 }
 
 .modal-content p {
-    margin-bottom: 1.5rem;
-    color: #a0a8b7;
-    font-size: 0.95rem;
-    line-height: 1.5;
+  margin-bottom: 1.5rem;
+  color: #a0a8b7;
+  font-size: 0.95rem;
+  line-height: 1.5;
 }
 
 /* 输入框样式 */
 .modal-content input[type="text"] {
-    width: 100%;
-    padding: 12px;
-    font-size: 1rem;
-    border-radius: 6px;
-    border: 1px solid #4a558c;
-    background-color: #121426;
-    color: #e0e5ff;
-    box-sizing: border-box; /* 确保padding不会撑大宽度 */
-    margin-bottom: 1.5rem;
-    transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #4a558c;
+  background-color: #121426;
+  color: #e0e5ff;
+  box-sizing: border-box; /* 确保padding不会撑大宽度 */
+  margin-bottom: 1.5rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .modal-content input[type="text"]:focus {
-    outline: none;
-    border-color: #8a99ff;
-    box-shadow: 0 0 0 3px rgba(138, 153, 255, 0.25);
+  outline: none;
+  border-color: #8a99ff;
+  box-shadow: 0 0 0 3px rgba(138, 153, 255, 0.25);
 }
 
 /* 按钮容器 */
 .modal-actions {
-    display: flex;
-    justify-content: flex-end; /* 按钮靠右对齐 */
-    gap: 1rem; /* 按钮之间的间距 */
+  display: flex;
+  justify-content: flex-end; /* 按钮靠右对齐 */
+  gap: 1rem; /* 按钮之间的间距 */
 }
 
 /* 模态框内的按钮通用样式 */
 .modal-actions button {
-    padding: 10px 20px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
 }
 
 /* 次要按钮 (取消) */
 .modal-actions .btn-secondary {
-    background-color: transparent;
-    border: 1px solid #4a558c;
-    color: #a0a8b7;
+  background-color: transparent;
+  border: 1px solid #4a558c;
+  color: #a0a8b7;
 }
 
 .modal-actions .btn-secondary:hover {
-    background-color: #313763;
+  background-color: #313763;
 }
 
 /* 主要按钮 (确定) */
 .modal-actions .btn-primary {
-    background-color: #6c63ff; /* 主题色 */
-    color: #fff;
+  background-color: #6c63ff; /* 主题色 */
+  color: #fff;
 }
 
 .modal-actions .btn-primary:hover {
-    background-color: #5850e0;
+  background-color: #5850e0;
 }
 
 .modal-actions button:active {
-    transform: scale(0.98);
+  transform: scale(0.98);
 }
 /* ================================== */
 /*        模式切换开关 (你的代码)         */
 /* ================================== */
 .toggle-cont {
-  --primary: #54a8fc;
-  --light: #d9d9d9;
-  --dark: #121212;
-  --gray: #414344;
+--primary: #54a8fc;
+--light: #d9d9d9;
+--dark: #121212;
+--gray: #414344;
 
-  position: relative;
-  z-index: 10;
-  width: fit-content;
-  height: 50px;
-  border-radius: 9999px;
-  margin-left: 20px; /* 为了和开始按钮隔开一点距离 */
+position: relative;
+z-index: 10;
+width: fit-content;
+height: 50px;
+border-radius: 9999px;
+margin-left: 20px; /* 为了和开始按钮隔开一点距离 */
 }
 /* ... 这里粘贴你提供的所有开关CSS ... */
 .toggle-cont .toggle-input { display: none; }
@@ -659,806 +659,933 @@ main {
 .cont-icon .icon { width: 1.1rem; fill: var(--light); }
 .toggle-cont:has(.toggle-input:checked) { --checked: true; }
 @container style(--checked: true) {
-  .toggle-cont .toggle-label { background-color: #41434400; border: 1px solid #3d6970; border-bottom: 0; }
-  .toggle-cont .toggle-label::before { box-shadow: 0 1rem 2.5rem -2rem #0080ff; }
-  .toggle-cont .toggle-label .cont-icon { overflow: visible; background-image: radial-gradient( circle at 50% 0%, #045ab1 0%, var(--primary) 100% ); border: 1px solid var(--primary); border-bottom: 0; transform: translateX(calc((var(--gap) * 2) + 100%)) rotate(-225deg); }
-  .toggle-cont .toggle-label .cont-icon .sparkle { z-index: -10; width: calc(var(--width) * 1.5px); background-color: #acacac; animation: sparkle calc(100s / var(--duration)) linear calc(10s / var(--duration)) infinite; }
-  @keyframes sparkle { to { width: calc(var(--width) * 1px); transform: translate(5000%, -50%); } }
+.toggle-cont .toggle-label { background-color: #41434400; border: 1px solid #3d6970; border-bottom: 0; }
+.toggle-cont .toggle-label::before { box-shadow: 0 1rem 2.5rem -2rem #0080ff; }
+.toggle-cont .toggle-label .cont-icon { overflow: visible; background-image: radial-gradient( circle at 50% 0%, #045ab1 0%, var(--primary) 100% ); border: 1px solid var(--primary); border-bottom: 0; transform: translateX(calc((var(--gap) * 2) + 100%)) rotate(-225deg); }
+.toggle-cont .toggle-label .cont-icon .sparkle { z-index: -10; width: calc(var(--width) * 1.5px); background-color: #acacac; animation: sparkle calc(100s / var(--duration)) linear calc(10s / var(--duration)) infinite; }
+@keyframes sparkle { to { width: calc(var(--width) * 1px); transform: translate(5000%, -50%); } }
 }
 
 /* ================================== */
 /*        【新增】模式提示框样式         */
 /* ================================== */
 #mode-indicator {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 15px 30px;
-    border-radius: 10px;
-    font-size: 1.5em;
-    font-weight: bold;
-    z-index: 1000;
-    opacity: 0; /* 默认隐藏 */
-    pointer-events: none; /* 隐藏时不可点击 */
-    transition: opacity 0.5s ease-in-out;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 15px 30px;
+  border-radius: 10px;
+  font-size: 1.5em;
+  font-weight: bold;
+  z-index: 1000;
+  opacity: 0; /* 默认隐藏 */
+  pointer-events: none; /* 隐藏时不可点击 */
+  transition: opacity 0.5s ease-in-out;
 }
 
 #mode-indicator.show {
-    opacity: 1; /* 显示 */
+  opacity: 1; /* 显示 */
 }
 /* ============================================== */
 /*  【新增】模式切换开关 - 尺寸与定位 (覆盖旧样式)   */
 /* ============================================== */
 
 .toggle-cont {
-    /* --- 定位 --- */
-    position: fixed; /* 使用固定定位，使其始终在屏幕右上角 */
-    top: 25px;       /* 距离浏览器顶部25px */
-    right: 50px;     /* 距离浏览器右侧25px */
-    z-index: 1100;   /* 设置一个较高的层级，确保在所有弹窗之上 */
+  /* --- 定位 --- */
+  position: fixed; /* 使用固定定位，使其始终在屏幕右上角 */
+  top: 25px;       /* 距离浏览器顶部25px */
+  right: 50px;     /* 距离浏览器右侧25px */
+  z-index: 1100;   /* 设置一个较高的层级，确保在所有弹窗之上 */
 
-    /* --- 尺寸调整 (缩小) --- */
-    --width: 30px; /* 将圆形滑块的直径从 50px 减小到 30px */
-    --gap: 3px;    /* 将滑块移动的间隙从 5px 减小到 3px */
-    height: 35px;  /* 将开关整体高度从 50px 减小到 35px */
-    margin-left: 0; /* 移除之前为了和按钮隔开的左边距 */
+  /* --- 尺寸调整 (缩小) --- */
+  --width: 30px; /* 将圆形滑块的直径从 50px 减小到 30px */
+  --gap: 3px;    /* 将滑块移动的间隙从 5px 减小到 3px */
+  height: 35px;  /* 将开关整体高度从 50px 减小到 35px */
+  margin-left: 0; /* 移除之前为了和按钮隔开的左边距 */
 }
 
 /* 同样需要缩小内部圆形滑块的高度 */
 .toggle-cont .toggle-label .cont-icon {
-    height: 35px; /* 与外部容器高度保持一致 */
+  height: 35px; /* 与外部容器高度保持一致 */
 }
 
 /* 调整伪元素的大小，使其匹配新的尺寸 */
 .toggle-label::before {
-    width: calc(100% + 1rem); /* 缩小外发光环 */
-    height: calc(100% + 1rem);
+  width: calc(100% + 1rem); /* 缩小外发光环 */
+  height: calc(100% + 1rem);
 }
 /* From Uiverse.io by 00Kubi */ 
 .container {
-  /* --- 定位 --- */
-  position: fixed;   /* 使用固定定位，使其始终在屏幕右下角 */
-  bottom: 25px;      /* 距离浏览器底部25px */
-  right: 25px;       /* 距离浏览器右侧25px */
-  z-index: 999;      /* 层级低于弹窗(1000)和模式开关(1100)，避免遮挡 */
+/* --- 定位 --- */
+position: fixed;   /* 使用固定定位，使其始终在屏幕右下角 */
+bottom: 25px;      /* 距离浏览器底部25px */
+right: 25px;       /* 距离浏览器右侧25px */
+z-index: 999;      /* 层级低于弹窗(1000)和模式开关(1100)，避免遮挡 */
 
-  /* --- 尺寸 (来自你的代码) --- */
-  width: 190px;
-  height: 254px;
-  transition: 200ms;
+/* --- 尺寸 (来自你的代码) --- */
+width: 190px;
+height: 254px;
+transition: 200ms;
 }
 
 .container:active {
-  width: 180px;
-  height: 245px;
+width: 180px;
+height: 245px;
 }
 
 #card {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 20px;
-  transition: 700ms;
-  background: linear-gradient(45deg, #1a1a1a, #262626);
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  overflow: hidden;
-  box-shadow:
-    0 0 20px rgba(0, 0, 0, 0.3),
-    inset 0 0 20px rgba(0, 0, 0, 0.2);
+position: absolute;
+inset: 0;
+z-index: 0;
+display: flex;
+justify-content: center;
+align-items: center;
+border-radius: 20px;
+transition: 700ms;
+background: linear-gradient(45deg, #1a1a1a, #262626);
+border: 2px solid rgba(255, 255, 255, 0.1);
+overflow: hidden;
+box-shadow:
+  0 0 20px rgba(0, 0, 0, 0.3),
+  inset 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
 .card-content {
-  position: relative;
-  width: 100%;
-  height: 100%;
+position: relative;
+width: 100%;
+height: 100%;
 }
 
 #prompt {
-  bottom: 100px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 20;
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  transition: 300ms ease-in-out;
-  position: absolute;
-  text-align: center;
-  color: rgba(255, 255, 255, 0.7);
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+bottom: 100px;
+left: 50%;
+transform: translateX(-50%);
+z-index: 20;
+font-size: 16px;
+font-weight: 600;
+letter-spacing: 2px;
+transition: 300ms ease-in-out;
+position: absolute;
+text-align: center;
+color: rgba(255, 255, 255, 0.7);
+text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
 .title {
-  opacity: 0;
-  transition: 300ms ease-in-out;
-  position: absolute;
-  font-size: 28px;
-  font-weight: 800;
-  letter-spacing: 4px;
-  text-align: center;
-  width: 100%;
-  padding-top: 20px;
-  background: linear-gradient(45deg, #00ffaa, #00a2ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 15px rgba(0, 255, 170, 0.3));
-  text-shadow:
-    0 0 10px rgba(92, 103, 255, 0.5),
-    0 0 20px rgba(92, 103, 255, 0.3);
+opacity: 0;
+transition: 300ms ease-in-out;
+position: absolute;
+font-size: 28px;
+font-weight: 800;
+letter-spacing: 4px;
+text-align: center;
+width: 100%;
+padding-top: 20px;
+background: linear-gradient(45deg, #00ffaa, #00a2ff);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+filter: drop-shadow(0 0 15px rgba(0, 255, 170, 0.3));
+text-shadow:
+  0 0 10px rgba(92, 103, 255, 0.5),
+  0 0 20px rgba(92, 103, 255, 0.3);
 }
 
 .subtitle {
-  position: absolute;
-  bottom: 40px;
-  width: 100%;
-  text-align: center;
-  font-size: 12px;
-  letter-spacing: 2px;
-  transform: translateY(30px);
-  color: rgba(255, 255, 255, 0.6);
+position: absolute;
+bottom: 40px;
+width: 100%;
+text-align: center;
+font-size: 12px;
+letter-spacing: 2px;
+transform: translateY(30px);
+color: rgba(255, 255, 255, 0.6);
 }
 
 .highlight {
-  color: #00ffaa;
-  margin-left: 5px;
-  background: linear-gradient(90deg, #5c67ff, #ad51ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: bold;
+color: #00ffaa;
+margin-left: 5px;
+background: linear-gradient(90deg, #5c67ff, #ad51ff);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+font-weight: bold;
 }
 
 .glowing-elements {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
+position: absolute;
+inset: 0;
+pointer-events: none;
 }
 
 .glow-1,
 .glow-2,
 .glow-3 {
-  position: absolute;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle at center,
-    rgba(0, 255, 170, 0.3) 0%,
-    rgba(0, 255, 170, 0) 70%
-  );
-  filter: blur(15px);
-  opacity: 0;
-  transition: opacity 0.3s ease;
+position: absolute;
+width: 100px;
+height: 100px;
+border-radius: 50%;
+background: radial-gradient(
+  circle at center,
+  rgba(0, 255, 170, 0.3) 0%,
+  rgba(0, 255, 170, 0) 70%
+);
+filter: blur(15px);
+opacity: 0;
+transition: opacity 0.3s ease;
 }
 
 .glow-1 {
-  top: -20px;
-  left: -20px;
+top: -20px;
+left: -20px;
 }
 .glow-2 {
-  top: 50%;
-  right: -30px;
-  transform: translateY(-50%);
+top: 50%;
+right: -30px;
+transform: translateY(-50%);
 }
 .glow-3 {
-  bottom: -20px;
-  left: 30%;
+bottom: -20px;
+left: 30%;
 }
 
 .card-particles span {
-  position: absolute;
-  width: 3px;
-  height: 3px;
-  background: #00ffaa;
-  border-radius: 50%;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+position: absolute;
+width: 3px;
+height: 3px;
+background: #00ffaa;
+border-radius: 50%;
+opacity: 0;
+transition: opacity 0.3s ease;
 }
 
 /* Hover effects */
 .tracker:hover ~ #card .title {
-  opacity: 1;
-  transform: translateY(-10px);
+opacity: 1;
+transform: translateY(-10px);
 }
 
 .tracker:hover ~ #card .glowing-elements div {
-  opacity: 1;
+opacity: 1;
 }
 
 .tracker:hover ~ #card .card-particles span {
-  animation: particleFloat 2s infinite;
+animation: particleFloat 2s infinite;
 }
 
 @keyframes particleFloat {
-  0% {
-    transform: translate(0, 0);
-    opacity: 0;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    transform: translate(calc(var(--x, 0) * 30px), calc(var(--y, 0) * 30px));
-    opacity: 0;
-  }
+0% {
+  transform: translate(0, 0);
+  opacity: 0;
+}
+50% {
+  opacity: 1;
+}
+100% {
+  transform: translate(calc(var(--x, 0) * 30px), calc(var(--y, 0) * 30px));
+  opacity: 0;
+}
 }
 
 /* Particle positions */
 .card-particles span:nth-child(1) {
-  --x: 1;
-  --y: -1;
-  top: 40%;
-  left: 20%;
+--x: 1;
+--y: -1;
+top: 40%;
+left: 20%;
 }
 .card-particles span:nth-child(2) {
-  --x: -1;
-  --y: -1;
-  top: 60%;
-  right: 20%;
+--x: -1;
+--y: -1;
+top: 60%;
+right: 20%;
 }
 .card-particles span:nth-child(3) {
-  --x: 0.5;
-  --y: 1;
-  top: 20%;
-  left: 40%;
+--x: 0.5;
+--y: 1;
+top: 20%;
+left: 40%;
 }
 .card-particles span:nth-child(4) {
-  --x: -0.5;
-  --y: 1;
-  top: 80%;
-  right: 40%;
+--x: -0.5;
+--y: 1;
+top: 80%;
+right: 40%;
 }
 .card-particles span:nth-child(5) {
-  --x: 1;
-  --y: 0.5;
-  top: 30%;
-  left: 60%;
+--x: 1;
+--y: 0.5;
+top: 30%;
+left: 60%;
 }
 .card-particles span:nth-child(6) {
-  --x: -1;
-  --y: 0.5;
-  top: 70%;
-  right: 60%;
+--x: -1;
+--y: 0.5;
+top: 70%;
+right: 60%;
 }
 
 #card::before {
-  content: "";
-  background: radial-gradient(
-    circle at center,
-    rgba(0, 255, 170, 0.1) 0%,
-    rgba(0, 162, 255, 0.05) 50%,
-    transparent 100%
-  );
-  filter: blur(20px);
-  opacity: 0;
-  width: 150%;
-  height: 150%;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  transition: opacity 0.3s ease;
+content: "";
+background: radial-gradient(
+  circle at center,
+  rgba(0, 255, 170, 0.1) 0%,
+  rgba(0, 162, 255, 0.05) 50%,
+  transparent 100%
+);
+filter: blur(20px);
+opacity: 0;
+width: 150%;
+height: 150%;
+position: absolute;
+left: 50%;
+top: 50%;
+transform: translate(-50%, -50%);
+transition: opacity 0.3s ease;
 }
 
 .tracker:hover ~ #card::before {
-  opacity: 1;
+opacity: 1;
 }
 
 .tracker {
-  position: absolute;
-  z-index: 200;
-  width: 100%;
-  height: 100%;
+position: absolute;
+z-index: 200;
+width: 100%;
+height: 100%;
 }
 
 .tracker:hover {
-  cursor: pointer;
+cursor: pointer;
 }
 
 .tracker:hover ~ #card #prompt {
-  opacity: 0;
+opacity: 0;
 }
 
 .tracker:hover ~ #card {
-  transition: 300ms;
-  filter: brightness(1.1);
+transition: 300ms;
+filter: brightness(1.1);
 }
 
 .container:hover #card::before {
-  transition: 200ms;
-  content: "";
-  opacity: 80%;
+transition: 200ms;
+content: "";
+opacity: 80%;
 }
 
 .canvas {
-  perspective: 800px;
-  inset: 0;
-  z-index: 200;
-  position: absolute;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-  gap: 0px 0px;
-  grid-template-areas:
-    "tr-1 tr-2 tr-3 tr-4 tr-5"
-    "tr-6 tr-7 tr-8 tr-9 tr-10"
-    "tr-11 tr-12 tr-13 tr-14 tr-15"
-    "tr-16 tr-17 tr-18 tr-19 tr-20"
-    "tr-21 tr-22 tr-23 tr-24 tr-25";
+perspective: 800px;
+inset: 0;
+z-index: 200;
+position: absolute;
+display: grid;
+grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+gap: 0px 0px;
+grid-template-areas:
+  "tr-1 tr-2 tr-3 tr-4 tr-5"
+  "tr-6 tr-7 tr-8 tr-9 tr-10"
+  "tr-11 tr-12 tr-13 tr-14 tr-15"
+  "tr-16 tr-17 tr-18 tr-19 tr-20"
+  "tr-21 tr-22 tr-23 tr-24 tr-25";
 }
 
 .tr-1 {
-  grid-area: tr-1;
+grid-area: tr-1;
 }
 
 .tr-2 {
-  grid-area: tr-2;
+grid-area: tr-2;
 }
 
 .tr-3 {
-  grid-area: tr-3;
+grid-area: tr-3;
 }
 
 .tr-4 {
-  grid-area: tr-4;
+grid-area: tr-4;
 }
 
 .tr-5 {
-  grid-area: tr-5;
+grid-area: tr-5;
 }
 
 .tr-6 {
-  grid-area: tr-6;
+grid-area: tr-6;
 }
 
 .tr-7 {
-  grid-area: tr-7;
+grid-area: tr-7;
 }
 
 .tr-8 {
-  grid-area: tr-8;
+grid-area: tr-8;
 }
 
 .tr-9 {
-  grid-area: tr-9;
+grid-area: tr-9;
 }
 
 .tr-10 {
-  grid-area: tr-10;
+grid-area: tr-10;
 }
 
 .tr-11 {
-  grid-area: tr-11;
+grid-area: tr-11;
 }
 
 .tr-12 {
-  grid-area: tr-12;
+grid-area: tr-12;
 }
 
 .tr-13 {
-  grid-area: tr-13;
+grid-area: tr-13;
 }
 
 .tr-14 {
-  grid-area: tr-14;
+grid-area: tr-14;
 }
 
 .tr-15 {
-  grid-area: tr-15;
+grid-area: tr-15;
 }
 
 .tr-16 {
-  grid-area: tr-16;
+grid-area: tr-16;
 }
 
 .tr-17 {
-  grid-area: tr-17;
+grid-area: tr-17;
 }
 
 .tr-18 {
-  grid-area: tr-18;
+grid-area: tr-18;
 }
 
 .tr-19 {
-  grid-area: tr-19;
+grid-area: tr-19;
 }
 
 .tr-20 {
-  grid-area: tr-20;
+grid-area: tr-20;
 }
 
 .tr-21 {
-  grid-area: tr-21;
+grid-area: tr-21;
 }
 
 .tr-22 {
-  grid-area: tr-22;
+grid-area: tr-22;
 }
 
 .tr-23 {
-  grid-area: tr-23;
+grid-area: tr-23;
 }
 
 .tr-24 {
-  grid-area: tr-24;
+grid-area: tr-24;
 }
 
 .tr-25 {
-  grid-area: tr-25;
+grid-area: tr-25;
 }
 
 .tr-1:hover ~ #card {
-  transition: 125ms ease-in-out;
-  transform: rotateX(20deg) rotateY(-10deg) rotateZ(0deg);
+transition: 125ms ease-in-out;
+transform: rotateX(20deg) rotateY(-10deg) rotateZ(0deg);
 }
 
 .tr-2:hover ~ #card {
-  transition: 125ms ease-in-out;
-  transform: rotateX(20deg) rotateY(-5deg) rotateZ(0deg);
+transition: 125ms ease-in-out;
+transform: rotateX(20deg) rotateY(-5deg) rotateZ(0deg);
 }
 
 .tr-3:hover ~ #card {
-  transition: 125ms ease-in-out;
-  transform: rotateX(20deg) rotateY(0deg) rotateZ(0deg);
+transition: 125ms ease-in-out;
+transform: rotateX(20deg) rotateY(0deg) rotateZ(0deg);
 }
 
 .tr-4:hover ~ #card {
-  transition: 125ms ease-in-out;
-  transform: rotateX(20deg) rotateY(5deg) rotateZ(0deg);
+transition: 125ms ease-in-out;
+transform: rotateX(20deg) rotateY(5deg) rotateZ(0deg);
 }
 
 .tr-5:hover ~ #card {
-  transition: 125ms ease-in-out;
-  transform: rotateX(20deg) rotateY(10deg) rotateZ(0deg);
+transition: 125ms ease-in-out;
+transform: rotateX(20deg) rotateY(10deg) rotateZ(0deg);
 }
 
 .tr-6:hover ~ #card {
-  transition: 125ms ease-in-out;
-  transform: rotateX(10deg) rotateY(-10deg) rotateZ(0deg);
+transition: 125ms ease-in-out;
+transform: rotateX(10deg) rotateY(-10deg) rotateZ(0deg);
 }
 
 .tr-7:hover ~ #card {
-  transition: 125ms ease-in-out;
-  transform: rotateX(10deg) rotateY(-5deg) rotateZ(0deg);
+transition: 125ms ease-in-out;
+transform: rotateX(10deg) rotateY(-5deg) rotateZ(0deg);
 }
 
 .tr-8:hover ~ #card {
-  transition: 125ms ease-in-out;
-  transform: rotateX(10deg) rotateY(0deg) rotateZ(0deg);
+transition: 125ms ease-in-out;
+transform: rotateX(10deg) rotateY(0deg) rotateZ(0deg);
 }
 
 .tr-9:hover ~ #card {
-  transition: 125ms ease-in-out;
-  transform: rotateX(10deg) rotateY(5deg) rotateZ(0deg);
+transition: 125ms ease-in-out;
+transform: rotateX(10deg) rotateY(5deg) rotateZ(0deg);
 }
 
 .tr-10:hover ~ #card {
-  transition: 125ms ease-in-out;
-  transform: rotateX(10deg) rotateY(10deg) rotateZ(0deg);
+transition: 125ms ease-in-out;
+transform: rotateX(10deg) rotateY(10deg) rotateZ(0deg);
 }
 
 .tr-11:hover ~ #card {
-  transition: 125ms ease-in-out;
-  transform: rotateX(0deg) rotateY(-10deg) rotateZ(0deg);
+transition: 125ms ease-in-out;
+transform: rotateX(0deg) rotateY(-10deg) rotateZ(0deg);
 }
 
 .tr-12:hover ~ #card {
-  transition: 125ms ease-in-out;
-  transform: rotateX(0deg) rotateY(-5deg) rotateZ(0deg);
+transition: 125ms ease-in-out;
+transform: rotateX(0deg) rotateY(-5deg) rotateZ(0deg);
 }
 
 .tr-13:hover ~ #card {
-  transition: 125ms ease-in-out;
-  transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+transition: 125ms ease-in-out;
+transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
 }
 
 .tr-14:hover ~ #card {
-  transition: 125ms ease-in-out;
-  transform: rotateX(0deg) rotateY(5deg) rotateZ(0deg);
+transition: 125ms ease-in-out;
+transform: rotateX(0deg) rotateY(5deg) rotateZ(0deg);
 }
 
 .tr-15:hover ~ #card {
-  transition: 125ms ease-in-out;
-  transform: rotateX(0deg) rotateY(10deg) rotateZ(0deg);
+transition: 125ms ease-in-out;
+transform: rotateX(0deg) rotateY(10deg) rotateZ(0deg);
 }
 
 .tr-16:hover ~ #card {
-  transition: 125ms ease-in-out;
-  transform: rotateX(-10deg) rotateY(-10deg) rotateZ(0deg);
+transition: 125ms ease-in-out;
+transform: rotateX(-10deg) rotateY(-10deg) rotateZ(0deg);
 }
 
 .tr-17:hover ~ #card {
-  transition: 125ms ease-in-out;
-  transform: rotateX(-10deg) rotateY(-5deg) rotateZ(0deg);
+transition: 125ms ease-in-out;
+transform: rotateX(-10deg) rotateY(-5deg) rotateZ(0deg);
 }
 
 .tr-18:hover ~ #card {
-  transition: 125ms ease-in-out;
-  transform: rotateX(-10deg) rotateY(0deg) rotateZ(0deg);
+transition: 125ms ease-in-out;
+transform: rotateX(-10deg) rotateY(0deg) rotateZ(0deg);
 }
 
 .tr-19:hover ~ #card {
-  transition: 125ms ease-in-out;
-  transform: rotateX(-10deg) rotateY(5deg) rotateZ(0deg);
+transition: 125ms ease-in-out;
+transform: rotateX(-10deg) rotateY(5deg) rotateZ(0deg);
 }
 
 .tr-20:hover ~ #card {
-  transition: 125ms ease-in-out;
-  transform: rotateX(-10deg) rotateY(10deg) rotateZ(0deg);
+transition: 125ms ease-in-out;
+transform: rotateX(-10deg) rotateY(10deg) rotateZ(0deg);
 }
 
 .tr-21:hover ~ #card {
-  transition: 125ms ease-in-out;
-  transform: rotateX(-20deg) rotateY(-10deg) rotateZ(0deg);
+transition: 125ms ease-in-out;
+transform: rotateX(-20deg) rotateY(-10deg) rotateZ(0deg);
 }
 
 .tr-22:hover ~ #card {
-  transition: 125ms ease-in-out;
-  transform: rotateX(-20deg) rotateY(-5deg) rotateZ(0deg);
+transition: 125ms ease-in-out;
+transform: rotateX(-20deg) rotateY(-5deg) rotateZ(0deg);
 }
 
 .tr-23:hover ~ #card {
-  transition: 125ms ease-in-out;
-  transform: rotateX(-20deg) rotateY(0deg) rotateZ(0deg);
+transition: 125ms ease-in-out;
+transform: rotateX(-20deg) rotateY(0deg) rotateZ(0deg);
 }
 
 .tr-24:hover ~ #card {
-  transition: 125ms ease-in-out;
-  transform: rotateX(-20deg) rotateY(5deg) rotateZ(0deg);
+transition: 125ms ease-in-out;
+transform: rotateX(-20deg) rotateY(5deg) rotateZ(0deg);
 }
 
 .tr-25:hover ~ #card {
-  transition: 125ms ease-in-out;
-  transform: rotateX(-20deg) rotateY(10deg) rotateZ(0deg);
+transition: 125ms ease-in-out;
+transform: rotateX(-20deg) rotateY(10deg) rotateZ(0deg);
 }
 
 .noselect {
-  -webkit-touch-callout: none;
-  /* iOS Safari */
-  -webkit-user-select: none;
-  /* Safari */
-  /* Konqueror HTML */
-  -moz-user-select: none;
-  /* Old versions of Firefox */
-  -ms-user-select: none;
-  /* Internet Explorer/Edge */
-  user-select: none;
-  /* Non-prefixed version, currently
-									supported by Chrome, Edge, Opera and Firefox */
+-webkit-touch-callout: none;
+/* iOS Safari */
+-webkit-user-select: none;
+/* Safari */
+/* Konqueror HTML */
+-moz-user-select: none;
+/* Old versions of Firefox */
+-ms-user-select: none;
+/* Internet Explorer/Edge */
+user-select: none;
+/* Non-prefixed version, currently
+                supported by Chrome, Edge, Opera and Firefox */
 }
 
 .card-glare {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    125deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.05) 45%,
-    rgba(255, 255, 255, 0.1) 50%,
-    rgba(255, 255, 255, 0.05) 55%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  opacity: 0;
-  transition: opacity 300ms;
+position: absolute;
+inset: 0;
+background: linear-gradient(
+  125deg,
+  rgba(255, 255, 255, 0) 0%,
+  rgba(255, 255, 255, 0.05) 45%,
+  rgba(255, 255, 255, 0.1) 50%,
+  rgba(255, 255, 255, 0.05) 55%,
+  rgba(255, 255, 255, 0) 100%
+);
+opacity: 0;
+transition: opacity 300ms;
 }
 
 .cyber-lines span {
-  position: absolute;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(92, 103, 255, 0.2),
-    transparent
-  );
+position: absolute;
+background: linear-gradient(
+  90deg,
+  transparent,
+  rgba(92, 103, 255, 0.2),
+  transparent
+);
 }
 
 .cyber-lines span:nth-child(1) {
-  top: 20%;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  transform: scaleX(0);
-  transform-origin: left;
-  animation: lineGrow 3s linear infinite;
+top: 20%;
+left: 0;
+width: 100%;
+height: 1px;
+transform: scaleX(0);
+transform-origin: left;
+animation: lineGrow 3s linear infinite;
 }
 
 .cyber-lines span:nth-child(2) {
-  top: 40%;
-  right: 0;
-  width: 100%;
-  height: 1px;
-  transform: scaleX(0);
-  transform-origin: right;
-  animation: lineGrow 3s linear infinite 1s;
+top: 40%;
+right: 0;
+width: 100%;
+height: 1px;
+transform: scaleX(0);
+transform-origin: right;
+animation: lineGrow 3s linear infinite 1s;
 }
 
 .cyber-lines span:nth-child(3) {
-  top: 60%;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  transform: scaleX(0);
-  transform-origin: left;
-  animation: lineGrow 3s linear infinite 2s;
+top: 60%;
+left: 0;
+width: 100%;
+height: 1px;
+transform: scaleX(0);
+transform-origin: left;
+animation: lineGrow 3s linear infinite 2s;
 }
 
 .cyber-lines span:nth-child(4) {
-  top: 80%;
-  right: 0;
-  width: 100%;
-  height: 1px;
-  transform: scaleX(0);
-  transform-origin: right;
-  animation: lineGrow 3s linear infinite 1.5s;
+top: 80%;
+right: 0;
+width: 100%;
+height: 1px;
+transform: scaleX(0);
+transform-origin: right;
+animation: lineGrow 3s linear infinite 1.5s;
 }
 
 .corner-elements span {
-  position: absolute;
-  width: 15px;
-  height: 15px;
-  border: 2px solid rgba(92, 103, 255, 0.3);
+position: absolute;
+width: 15px;
+height: 15px;
+border: 2px solid rgba(92, 103, 255, 0.3);
 }
 
 .corner-elements span:nth-child(1) {
-  top: 10px;
-  left: 10px;
-  border-right: 0;
-  border-bottom: 0;
+top: 10px;
+left: 10px;
+border-right: 0;
+border-bottom: 0;
 }
 
 .corner-elements span:nth-child(2) {
-  top: 10px;
-  right: 10px;
-  border-left: 0;
-  border-bottom: 0;
+top: 10px;
+right: 10px;
+border-left: 0;
+border-bottom: 0;
 }
 
 .corner-elements span:nth-child(3) {
-  bottom: 10px;
-  left: 10px;
-  border-right: 0;
-  border-top: 0;
+bottom: 10px;
+left: 10px;
+border-right: 0;
+border-top: 0;
 }
 
 .corner-elements span:nth-child(4) {
-  bottom: 10px;
-  right: 10px;
-  border-left: 0;
-  border-top: 0;
+bottom: 10px;
+right: 10px;
+border-left: 0;
+border-top: 0;
 }
 
 .scan-line {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    rgba(92, 103, 255, 0.1),
-    transparent
-  );
-  transform: translateY(-100%);
-  animation: scanMove 2s linear infinite;
+position: absolute;
+inset: 0;
+background: linear-gradient(
+  to bottom,
+  transparent,
+  rgba(92, 103, 255, 0.1),
+  transparent
+);
+transform: translateY(-100%);
+animation: scanMove 2s linear infinite;
 }
 
 @keyframes lineGrow {
-  0% {
-    transform: scaleX(0);
-    opacity: 0;
-  }
-  50% {
-    transform: scaleX(1);
-    opacity: 1;
-  }
-  100% {
-    transform: scaleX(0);
-    opacity: 0;
-  }
+0% {
+  transform: scaleX(0);
+  opacity: 0;
+}
+50% {
+  transform: scaleX(1);
+  opacity: 1;
+}
+100% {
+  transform: scaleX(0);
+  opacity: 0;
+}
 }
 
 @keyframes scanMove {
-  0% {
-    transform: translateY(-100%);
-  }
-  100% {
-    transform: translateY(100%);
-  }
+0% {
+  transform: translateY(-100%);
+}
+100% {
+  transform: translateY(100%);
+}
 }
 
 /* Modyfikacja istniejących styli */
 #card:hover .card-glare {
-  opacity: 1;
+opacity: 1;
 }
 
 .corner-elements span {
-  transition: all 0.3s ease;
+transition: all 0.3s ease;
 }
 
 #card:hover .corner-elements span {
-  border-color: rgba(92, 103, 255, 0.8);
-  box-shadow: 0 0 10px rgba(92, 103, 255, 0.5);
+border-color: rgba(92, 103, 255, 0.8);
+box-shadow: 0 0 10px rgba(92, 103, 255, 0.5);
 }
 /* ✨ 新增：加载动画的遮罩层和样式 */
 .spinner-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(20, 24, 33, 0.7); /* 半透明背景 */
-    display: none; /* 默认隐藏 */
-    justify-content: center;
-    align-items: center;
-    flex-direction: column; /* 让文字在图标下方 */
-    z-index: 2000; /* 确保在最顶层 */
-    backdrop-filter: blur(5px); /* 毛玻璃效果 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(20, 24, 33, 0.7); /* 半透明背景 */
+  display: none; /* 默认隐藏 */
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; /* 让文字在图标下方 */
+  z-index: 2000; /* 确保在最顶层 */
+  backdrop-filter: blur(5px); /* 毛玻璃效果 */
 }
 
 #spinnerMessage {
-    color: #e0e0e0;
-    margin-top: 25px;
-    font-size: 1.1em;
-    font-weight: 500;
+  color: #e0e0e0;
+  margin-top: 25px;
+  font-size: 1.1em;
+  font-weight: 500;
 }
 
 /* 这是你提供的 spinner 样式，无需修改 */
 .spinner {
-    width: 44px;
-    height: 44px;
-    animation: spinner-y0fdc1 2s infinite ease;
-    transform-style: preserve-3d;
+  width: 44px;
+  height: 44px;
+  animation: spinner-y0fdc1 2s infinite ease;
+  transform-style: preserve-3d;
 }
 
 .spinner > div {
-    background-color: rgba(0, 77, 255, 0.2);
-    height: 100%;
-    position: absolute;
-    width: 100%;
-    border: 2px solid #004dff;
+  background-color: rgba(0, 77, 255, 0.2);
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  border: 2px solid #004dff;
 }
 
 .spinner div:nth-of-type(1) {
-    transform: translateZ(-22px) rotateY(180deg);
+  transform: translateZ(-22px) rotateY(180deg);
 }
 
 .spinner div:nth-of-type(2) {
-    transform: rotateY(-270deg) translateX(50%);
-    transform-origin: top right;
+  transform: rotateY(-270deg) translateX(50%);
+  transform-origin: top right;
 }
 
 .spinner div:nth-of-type(3) {
-    transform: rotateY(270deg) translateX(-50%);
-    transform-origin: center left;
+  transform: rotateY(270deg) translateX(-50%);
+  transform-origin: center left;
 }
 
 .spinner div:nth-of-type(4) {
-    transform: rotateX(90deg) translateY(-50%);
-    transform-origin: top center;
+  transform: rotateX(90deg) translateY(-50%);
+  transform-origin: top center;
 }
 
 .spinner div:nth-of-type(5) {
-    transform: rotateX(-90deg) translateY(50%);
-    transform-origin: bottom center;
+  transform: rotateX(-90deg) translateY(50%);
+  transform-origin: bottom center;
 }
 
 .spinner div:nth-of-type(6) {
-    transform: translateZ(22px);
+  transform: translateZ(22px);
 }
 
 @keyframes spinner-y0fdc1 {
-    0% {
-        transform: rotate(45deg) rotateX(-25deg) rotateY(25deg);
-    }
+  0% {
+      transform: rotate(45deg) rotateX(-25deg) rotateY(25deg);
+  }
 
-    50% {
-        transform: rotate(45deg) rotateX(-385deg) rotateY(25deg);
-    }
+  50% {
+      transform: rotate(45deg) rotateX(-385deg) rotateY(25deg);
+  }
 
-    100% {
-        transform: rotate(45deg) rotateX(-385deg) rotateY(385deg);
-    }
+  100% {
+      transform: rotate(45deg) rotateX(-385deg) rotateY(385deg);
+  }
+}
+/* --- 笔记生成按钮的加载动画 --- */
+.note-btn-loading .loader-wrapper {
+position: relative;
+display: flex;
+align-items: center;
+justify-content: center;
+/* 调整尺寸和字体大小以适应按钮 */
+font-family: "Poppins", sans-serif;
+font-size: 0.8em; /* 缩小字体 */
+font-weight: 600;
+user-select: none;
+color: #fff;
+/* 关键：大幅缩小动画以适应按钮大小 */
+transform: scale(0.25); 
+/* 确保它不会撑开按钮 */
+height: 100%;
+width: 100%;
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+/* 移除按钮的内边距，以便动画完全填充 */
+.note-btn-loading {
+padding: 0 !important;
+overflow: hidden; /* 防止动画溢出 */
+}
+
+.note-btn-loading .loader {
+position: absolute;
+top: 0;
+left: 0;
+height: 100%;
+width: 100%;
+z-index: 1;
+
+background-color: transparent;
+mask: repeating-linear-gradient(
+  90deg,
+  transparent 0,
+  transparent 6px,
+  black 7px,
+  black 8px
+);
+}
+
+.note-btn-loading .loader::after {
+content: "";
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-image: radial-gradient(circle at 50% 50%, #ff0 0%, transparent 50%),
+  radial-gradient(circle at 45% 45%, #f00 0%, transparent 45%),
+  radial-gradient(circle at 55% 55%, #0ff 0%, transparent 45%),
+  radial-gradient(circle at 45% 55%, #0f0 0%, transparent 45%),
+  radial-gradient(circle at 55% 45%, #00f 0%, transparent 45%);
+mask: radial-gradient(
+  circle at 50% 50%,
+  transparent 0%,
+  transparent 10%,
+  black 25%
+);
+animation:
+  transform-animation 2s infinite alternate,
+  opacity-animation 4s infinite;
+animation-timing-function: cubic-bezier(0.6, 0.8, 0.5, 1);
+}
+
+@keyframes transform-animation {
+0% { transform: translate(-55%); }
+100% { transform: translate(55%); }
+}
+
+@keyframes opacity-animation {
+0%, 100% { opacity: 0; }
+15% { opacity: 1; }
+65% { opacity: 0; }
+}
+
+.note-btn-loading .loader-letter {
+display: inline-block;
+opacity: 0;
+animation: loader-letter-anim 4s infinite linear;
+z-index: 2;
+}
+
+/* (这里省略了所有 :nth-child 的 animation-delay，因为它们和您提供的一样) */
+.note-btn-loading .loader-letter:nth-child(1) { animation-delay: 0.1s; }
+.note-btn-loading .loader-letter:nth-child(2) { animation-delay: 0.205s; }
+.note-btn-loading .loader-letter:nth-child(3) { animation-delay: 0.31s; }
+.note-btn-loading .loader-letter:nth-child(4) { animation-delay: 0.415s; }
+.note-btn-loading .loader-letter:nth-child(5) { animation-delay: 0.521s; }
+.note-btn-loading .loader-letter:nth-child(6) { animation-delay: 0.626s; }
+.note-btn-loading .loader-letter:nth-child(7) { animation-delay: 0.731s; }
+.note-btn-loading .loader-letter:nth-child(8) { animation-delay: 0.837s; }
+.note-btn-loading .loader-letter:nth-child(9) { animation-delay: 0.942s; }
+.note-btn-loading .loader-letter:nth-child(10) { animation-delay: 1.047s; }
+
+
+@keyframes loader-letter-anim {
+0% { opacity: 0; }
+5% { opacity: 1; text-shadow: 0 0 4px #fff; transform: scale(1.1) translateY(-2px); }
+20% { opacity: 0.2; }
+100% { opacity: 0; }
+}
+/* --- 用这个新版本替换 --- */
+.note-btn-loading .loader-wrapper {
+position: relative;
+display: none;
+display: flex;
+align-items: center;
+justify-content: center;
+font-family: "Poppins", sans-serif;
+font-size: 0.8em;
+font-weight: 600;
+user-select: none;
+color: #fff;
+/* ✅ 将 scale 从 0.45 调大到 0.6，让整个动画（包括文字）更大 */
+transform: scale(0.8);
+height: 100%;
+width: 100%;
+margin: 0;
+padding: 0;
+box-sizing: border-box;
 }

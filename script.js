@@ -83,18 +83,23 @@ function runApp() {
     // --- 核心函数 ---
     // ==========================================================
 
-    function initializeRecognition() {
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        recognition = new SpeechRecognition();
-        recognition.lang = 'en-US';
-        recognition.continuous = true;
-        recognition.interimResults = isFullPowerMode;
-        recognition.onresult = handleRecognitionResult;
-        recognition.onstart = handleRecognitionStart;
-        recognition.onend = handleRecognitionEnd;
-        recognition.onerror = handleRecognitionError;
-        console.log("新的语音识别引擎已初始化。");
-    }
+ // --- 替换这个函数 ---
+
+function initializeRecognition() {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    recognition = new SpeechRecognition();
+    recognition.lang = 'en-US';
+    recognition.continuous = true;
+    
+
+    recognition.interimResults = true; 
+
+    recognition.onresult = handleRecognitionResult;
+    recognition.onstart = handleRecognitionStart;
+    recognition.onend = handleRecognitionEnd;
+    recognition.onerror = handleRecognitionError;
+    console.log("新的语音识别引擎已初始化 (强制开启 Interim Results)。");
+}
 
     function startListening() {
         if (isListening && !isPaused && recognition) {
@@ -120,7 +125,7 @@ function runApp() {
     async function generateAndApplyGrammar(courseName) {
         console.log(`开始为主题 "${courseName}" 生成专业词汇列表...`);
         try {
-            const prompt = `你是一个专家教授，在所有研究领域有着超人的见解。请为语音识别引擎生成JSGF格式的语法。我将给你一个课程主题，请你围绕这个主题，生成一个包含大约100个最核心、最专业、最可能被频繁提及的英文术语列表。输出要求：1. 每个术语必须是英文。2. 用 "|" 符号将每个术语隔开。3. 不要添加任何额外的解释、标题、编号或换行符，直接输出由 "|" 分隔的单个长字符串。课程主题是：${courseName}`;
+            const prompt = `你是一个专家教授，在所有研究领域有着超人的见解。请为语音识别引擎生成JSGF格式的语法。我将给你一个课程主题，请你围绕这个主题，生成一个包含大约50个最核心、最专业、最可能被频繁提及的英文术语列表。输出要求：1. 每个术语必须是英文。2. 用 "|" 符号将每个术语隔开。3. 不要添加任何额外的解释、标题、编号或换行符，直接输出由 "|" 分隔的单个长字符串。课程主题是：${courseName}`;
             const response = await fetch(DEEPSEEK_API_URL, {
                 method: 'POST',
                 headers: { 'Authorization': `Bearer ${DEEPSEEK_API_KEY}`, 'Content-Type': 'application/json' },
@@ -181,32 +186,54 @@ function runApp() {
         } catch (error) { console.error("DeepL Translation fetch error:", error); return "翻译接口出错"; }
     }
     
-    // ✅ 我已将这个被遗漏的函数恢复
-    async function summarizeTextForNote(text, courseName) {
-        if (!text || text.trim().length === 0) { return; }
-        noteBtn.textContent = "生成中..."; noteBtn.disabled = true;
-        const prompt = `You are a highly efficient note-taking assistant for a university lecture on "${courseName}". Please summarize the key points from the following transcript for a student's review. You can expand on the points where necessary. Please use Chinese for your response. The summary should be concise, well-structured, and use **bold text** to highlight key terms.\n\nTranscript content:\n"${text}"`;
-        try {
-            const response = await fetch(DEEPSEEK_API_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${DEEPSEEK_API_KEY}` },
-                body: JSON.stringify({ model: 'deepseek-chat', messages: [{ role: 'user', content: prompt }], temperature: 0.5 })
-            });
-            if (!response.ok) throw new Error(`DeepSeek API error! status: ${response.status}`);
-            const data = await response.json();
-            if (data.choices && data.choices.length > 0) { addNoteEntry(data.choices[0].message.content); } else { addNoteEntry("未能生成笔记摘要。"); }
-        } catch (error) {
-            console.error("DeepSeek API fetch error for note summarization:", error);
-            addNoteEntry("生成笔记时发生网络错误(DeepSeek)。");
-        } finally {
-            noteBtn.textContent = "笔记本"; noteBtn.disabled = false;
-        }
+    // 请用此版本替换您 JS 文件中现有的 summarizeTextForNote 函数
+async function summarizeTextForNote(text, courseName) {
+    // 1. 函数开头的检查逻辑保持不变
+    if (!text || text.trim().length === 0) { return; }
+    
+    // 2.【修改点】开始加载状态：保存原始文本，注入动画HTML，并添加class
+    const originalButtonText = noteBtn.innerHTML;
+    noteBtn.disabled = true;
+    noteBtn.classList.add('note-btn-loading'); 
+    noteBtn.innerHTML = `
+        <div class="loader-wrapper">
+            <span class="loader-letter">G</span>
+            <span class="loader-letter">e</span>
+            <span class="loader-letter">n</span>
+            <span class="loader-letter">e</span>
+            <span class="loader-letter">r</span>
+            <span class="loader-letter">a</span>
+            <span class="loader-letter">t</span>
+            <span class="loader-letter">i</span>
+            <span class="loader-letter">n</span>
+            <span class="loader-letter">g</span>
+            <div class="loader"></div>
+        </div>`;
+
+    // 3. 您的 prompt 原封不动
+    const prompt = `You are a highly efficient note-taking assistant for a university lecture on "${courseName}". Please summarize the key points from the following transcript for a student's review. You can expand on the points where necessary. Please use Chinese for your response. The summary should be concise, well-structured, and use **bold text** to highlight key terms.\n\nTranscript content:\n"${text}"`;
+    
+    // 4. try...catch 块中的 API 请求逻辑保持不变
+    try {
+        const response = await fetch(DEEPSEEK_API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${DEEPSEEK_API_KEY}` },
+            body: JSON.stringify({ model: 'deepseek-chat', messages: [{ role: 'user', content: prompt }], temperature: 0.5 })
+        });
+        if (!response.ok) throw new Error(`DeepSeek API error! status: ${response.status}`);
+        const data = await response.json();
+        if (data.choices && data.choices.length > 0) { addNoteEntry(data.choices[0].message.content); } else { addNoteEntry("未能生成笔记摘要。"); }
+    } catch (error) {
+        console.error("DeepSeek API fetch error for note summarization:", error);
+        addNoteEntry("生成笔记时发生网络错误(DeepSeek)。");
+    } finally {
+        // 5.【修改点】结束加载状态：移除class，恢复按钮的原始HTML内容
+        noteBtn.disabled = false;
+        noteBtn.classList.remove('note-btn-loading');
+        noteBtn.innerHTML = originalButtonText;
     }
+}
 
-
-    // ==========================================================
-    // --- 事件处理器 ---
-    // ==========================================================
 
     function handleRecognitionStart() {
         console.log('事件: onstart - 识别服务已连接。');
@@ -241,60 +268,113 @@ function runApp() {
         }
     }
     
-    function handleRecognitionResult(event) {
-        startInactivityCountdown();
-        if (!hasStarted) { liveContentOutput.innerHTML = ''; hasStarted = true; }
-        let interimTranscript = '', finalTranscript = '';
-        for (let i = event.resultIndex; i < event.results.length; ++i) {
-            if (event.results[i].isFinal) { finalTranscript += event.results[i][0].transcript; } else { interimTranscript += event.results[i][0].transcript; }
+ // --- 替换这个函数 ---
+
+function handleRecognitionResult(event) {
+    startInactivityCountdown();
+    let interimTranscript = '', finalTranscript = '';
+    for (let i = event.resultIndex; i < event.results.length; ++i) {
+        if (event.results[i].isFinal) {
+            finalTranscript += event.results[i][0].transcript;
+        } else {
+            interimTranscript += event.results[i][0].transcript;
         }
-        if (isFullPowerMode && interimTranscript) {
-            if (!currentOriginalP) {
-                currentOriginalP = document.createElement('p'); currentOriginalP.className = 'original-text new-entry'; liveContentOutput.appendChild(currentOriginalP);
-                currentTranslationP = document.createElement('p'); currentTranslationP.className = 'translation-text new-entry'; liveContentOutput.appendChild(currentTranslationP);
-                setTimeout(() => { currentOriginalP.classList.add('visible'); currentTranslationP.classList.add('visible'); }, 10);
-            }
-            currentOriginalP.innerHTML = `<span class="word">${fullTranscriptHistory}</span><span class="word interim-word">${interimTranscript}</span>`;
+    }
+
+    // ✅【核心修改 2】重构逻辑
+    // 逻辑：只要有 interim 结果，就无条件地更新屏幕上的英文原文。
+    if (interimTranscript) {
+        // 如果是新的一句话，先创建 DOM 元素
+        if (!currentOriginalP) {
+            currentOriginalP = document.createElement('p');
+            currentOriginalP.className = 'original-text new-entry';
+            liveContentOutput.appendChild(currentOriginalP);
+
+            currentTranslationP = document.createElement('p');
+            currentTranslationP.className = 'translation-text new-entry';
+            // 在经济模式下，这里只显示一个占位符，直到句子结束
+            currentTranslationP.innerHTML = `<span class="interim-translation">...</span>`; 
+            liveContentOutput.appendChild(currentTranslationP);
+            
+            setTimeout(() => {
+                currentOriginalP.classList.add('visible');
+                currentTranslationP.classList.add('visible');
+            }, 10);
+        }
+        
+        // 实时更新英文原文的显示
+        currentOriginalP.innerHTML = `<span class="word">${fullTranscriptHistory}</span><span class="word interim-word">${interimTranscript}</span>`;
+
+        // **关键区别**：只在“满血模式”下才对 interim 结果进行翻译
+        if (isFullPowerMode) {
             clearTimeout(interimTranslationTimer);
             interimTranslationTimer = setTimeout(async () => {
                 if (currentTranslationP && interimTranscript) {
                     const fastText = await getFastTranslation(interimTranscript);
-                    if(currentTranslationP) { currentTranslationP.innerHTML = (currentTranslationP.dataset.final_translation || "") + `<span class="interim-translation">${fastText || " ..."}</span>`; }
+                    if(currentTranslationP) { 
+                        const finalPart = currentTranslationP.dataset.final_translation || "";
+                        currentTranslationP.innerHTML = finalPart + `<span class="interim-translation">${fastText || " ..."}</span>`; 
+                    }
                 }
-            }, 1000);
-        } else if (!isFullPowerMode && (finalTranscript || interimTranscript)) {
-            if (!currentOriginalP) {
-                 currentOriginalP = document.createElement('p'); currentOriginalP.className = 'original-text new-entry visible'; liveContentOutput.appendChild(currentOriginalP);
-                 currentTranslationP = document.createElement('p'); currentTranslationP.className = 'translation-text new-entry visible'; liveContentOutput.appendChild(currentTranslationP);
-                 currentTranslationP.innerHTML = `<span class="interim-translation">...</span>`;
-            }
-            currentOriginalP.innerHTML = `<span class="word">${fullTranscriptHistory}${finalTranscript}${interimTranscript}</span>`;
+            }, 800); // 延迟800ms避免过于频繁的API请求
         }
-        if (finalTranscript) {
-            fullTranscriptHistory += finalTranscript;
-            noteBuffer += finalTranscript; 
-            if (currentOriginalP && currentTranslationP) {
-                const words = fullTranscriptHistory.split(/\s+/).map(word => `<span class="word">${word} </span>`).join('');
-                currentOriginalP.innerHTML = words;
-                currentOriginalP.classList.remove('new-entry');
-                const finalP = currentTranslationP;
-                const fullSentence = fullTranscriptHistory;
-                getFastTranslation(fullSentence).then(fastText => {
-                    finalP.innerHTML = `${fastText} <span class="ai-thinking-indicator">...</span>`;
-                    autoScrollView();
-                });
-                getAITranslation(fullSentence, currentCourseName).then(aiText => {
-                    if (aiText) { finalP.innerHTML = aiText; finalP.classList.add('ai-enhanced');
-                    } else { finalP.querySelector('.ai-thinking-indicator')?.remove(); }
-                });
-                finalP.dataset.final_translation = finalP.innerHTML;
-                finalP.classList.remove('new-entry');
-            }
-            currentOriginalP = null; currentTranslationP = null; fullTranscriptHistory = "";
+    }
+
+    // 逻辑：当一句话最终确定后，对两个模式都执行最终翻译。
+    if (finalTranscript) {
+        clearTimeout(interimTranslationTimer); // 停止任何可能在进行的 interim 翻译
+
+        fullTranscriptHistory += finalTranscript;
+        noteBuffer += finalTranscript; 
+        
+        // 确保 DOM 元素存在 (应对那些非常短、直接final的句子)
+        if (!currentOriginalP) {
+            currentOriginalP = document.createElement('p');
+            currentOriginalP.className = 'original-text new-entry visible';
+            liveContentOutput.appendChild(currentOriginalP);
+            currentTranslationP = document.createElement('p');
+            currentTranslationP.className = 'translation-text new-entry visible';
+            liveContentOutput.appendChild(currentTranslationP);
         }
-        autoScrollView();
+
+        // 更新并最终确定英文原文
+        const words = fullTranscriptHistory.split(/\s+/).filter(Boolean).map(word => `<span class="word">${word} </span>`).join('');
+        currentOriginalP.innerHTML = words;
+        currentOriginalP.classList.remove('new-entry');
+
+        const finalP = currentTranslationP;
+        const fullSentence = fullTranscriptHistory;
+
+        // 两个模式下都获取最终翻译
+        getFastTranslation(fullSentence).then(fastText => {
+            if (finalP) finalP.innerHTML = `${fastText} <span class="ai-thinking-indicator">...</span>`;
+            autoScrollView();
+        });
+        getAITranslation(fullSentence, currentCourseName).then(aiText => {
+            if (aiText && finalP) {
+                finalP.innerHTML = aiText;
+                finalP.classList.add('ai-enhanced');
+            } else if (finalP) {
+                finalP.querySelector('.ai-thinking-indicator')?.remove();
+            }
+        });
+        
+        if (finalP) {
+            finalP.dataset.final_translation = ''; // 清空，为下一句的 interim 翻译做准备
+            finalP.classList.remove('new-entry');
+        }
+
+        // 为下一句话重置状态
+        currentOriginalP = null;
+        currentTranslationP = null;
+        fullTranscriptHistory = "";
     }
     
+    // 只要有活动就滚动视图
+    if(interimTranscript || finalTranscript) {
+        autoScrollView();
+    }
+}
     // ==========================================================
     // --- 界面控制与辅助函数 ---
     // ==========================================================
@@ -313,7 +393,7 @@ function runApp() {
                 initializeRecognition();
                 
                 let optimizationSuccess;
-                showSpinner(`正在为 <strong>${currentCourseName}</strong> 课程优化识别引擎...大约需要15秒`);
+                showSpinner(`正在为 <strong>${currentCourseName}</strong> 课程优化识别引擎...`);
                 try {
                     optimizationSuccess = await generateAndApplyGrammar(currentCourseName);
                 } finally {
@@ -454,18 +534,29 @@ function runApp() {
         noteEntry.innerHTML = `${htmlContent}<button class="delete-note-btn">删除</button>`; noteOutput.appendChild(noteEntry);
     }
     
-    function updateStatusIndicator(state, message = '') {
-        statusIndicator.style.display = state === 'stopped' ? 'none' : 'flex';
-        waveIndicator.style.display = state === 'listening' ? 'flex' : 'none';
-        pauseIndicator.style.display = state === 'paused' || state === 'error' ? 'flex' : 'none';
+    // --- 替换这个函数 ---
+
+function updateStatusIndicator(state, message = '') {
+    statusIndicator.style.display = state === 'stopped' ? 'none' : 'flex';
+    waveIndicator.style.display = state === 'listening' ? 'flex' : 'none';
+    
+    const shouldShowPauseIcon = state === 'paused' || state === 'error';
+    pauseIndicator.style.display = shouldShowPauseIcon ? 'flex' : 'none';
+
+    if (shouldShowPauseIcon) {
         if (state === 'error') {
+            // 错误状态显示警告符号
             pauseIndicator.innerHTML = '&#9888;'; // Warning sign
             pauseIndicator.title = message;
         } else {
-             pauseIndicator.innerHTML = '||';
-             pauseIndicator.title = '';
+            // ✅ 修改开始
+            // 暂停状态显示新的自定义动画
+            pauseIndicator.innerHTML = '<div class="custom-loader"></div>';
+            pauseIndicator.title = '已暂停';
+            // ✅ 修改结束
         }
     }
+}
     
     function switchView(targetViewId) { views.forEach(view => { view.style.display = 'none'; }); document.getElementById(targetViewId).style.display = 'block'; [transBtn, noteBtn, vocabBtn].forEach(btn => btn.classList.remove('active-view')); const activeBtnMap = { 'translationView': transBtn, 'noteView': noteBtn, 'vocabView': vocabBtn }; if (activeBtnMap[targetViewId]) activeBtnMap[targetViewId].classList.add('active-view'); }
     
